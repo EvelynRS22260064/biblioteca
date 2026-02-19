@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -19,127 +19,324 @@
                 html { scroll-behavior: smooth; }
             </style>
         @endif
+
+        <style>
+        /* ambientación boscosa y detalles de libro antiguo */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f4f7f0; /* fondo muy suave verdoso */
+        }
+        .font-story {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        /* decoración de header: enredadera fina (mock) */
+        .header-vine {
+            background: linear-gradient(180deg, #2f5a3a 0%, #4b7b5e 100%);
+            box-shadow: 0 4px 10px rgba(30, 60, 30, 0.2);
+        }
+        .hero-glow {
+            text-shadow: 2px 2px 8px #2c4a2e, 0 0 20px #b8d9b0;
+        }
+        /* menú hamburguesa personalizado con vanilla js (solo estilos) */
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.2s;
+            transform: scaleY(0);
+            transform-origin: top;
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 100%;
+            background: #edf3e7;
+            border-top: 2px solid #3b6e4b;
+            box-shadow: 0 12px 20px -8px #2b4633;
+            z-index: 50;
+        }
+        .mobile-menu.open {
+            transform: scaleY(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* botón hamburguesa con fondo suave */
+        .hamburger-btn {
+            background: rgba(255,255,240,0.5);
+            border-radius: 12px;
+            padding: 0.5rem 0.7rem;
+            border: 1px solid #598b6b;
+        }
+        /* efecto pergamino en tarjetas */
+        .book-card {
+            background: rgba(250, 250, 240, 0.7);
+            backdrop-filter: blur(2px);
+            border: 1px solid #98b696;
+            box-shadow: 0 8px 16px -8px #2d4b2d;
+            transition: transform 0.2s;
+        }
+        .book-card:hover {
+            transform: translateY(-4px);
+            border-color: #6a9c7a;
+            box-shadow: 0 16px 24px -10px #1f3f2a;
+        }
+        .footer-moss {
+            background: #2b4b31;
+            background-image: radial-gradient(circle at 20% 40%, #4a7856 2px, transparent 2px), 
+                              radial-gradient(circle at 80% 70%, #5e8b66 1px, transparent 2px);
+            background-size: 40px 40px;
+        }
+        /* imágenes con filtro suave para integrar fantasía */
+        .image-enchant {
+            filter: sepia(0.15) hue-rotate(5deg) brightness(1.02);
+            border-radius: 20px 4px 20px 4px;
+            border: 2px solid #6f936f;
+        }
+        .stock-img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    </style>
+
     </head>
-    <body class="bg-gray-50 text-gray-800 font-sans">
+<body class="antialiased text-[#1f3b2c]">
 
-        <header class="bg-white shadow-md fixed w-full z-50">
-            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <span class="text-2xl font-bold text-blue-600">Biblio<span class="text-gray-700">Tech</span></span>
-                </div>
-
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="hover:text-blue-600 transition duration-300 font-medium">Inicio</a>
-                    <a href="#" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg">Login</a>
-                </div>
-
-                <div class="md:hidden">
-                    <button id="menu-btn" class="text-gray-700 focus:outline-none">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                        </svg>
-                    </button>
-                </div>
-            </nav>
-
-            <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-6 py-4 space-y-4 shadow-xl">
-                <a href="#" class="block text-gray-700 hover:text-blue-600 font-medium">Inicio</a>
-                <a href="#" class="block w-full text-center bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition">Login</a>
-            </div>
-        </header>
-
-        <section class="relative h-screen flex items-center justify-center pt-16 overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1920&q=80" 
-                     alt="Fondo de Biblioteca" 
-                     class="w-full h-full object-cover brightness-50">
-            </div>
-
-            <div class="relative z-10 text-center px-4 max-w-4xl">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-                    Descubre un universo de <span class="text-blue-400">historias</span> y conocimiento
-                </h1>
-                <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
-                    Accede a miles de libros, artículos y recursos digitales desde cualquier lugar. La lectura nunca fue tan accesible.
-                </p>
-                <div class="flex flex-col md:flex-row justify-center gap-4">
-                    <button class="bg-blue-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition transform hover:scale-105 shadow-xl">
-                        Explorar Catálogo
-                    </button>
-                    <button class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-blue-900 transition transform hover:scale-105">
-                        Saber Más
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-3 gap-12">
-                    <div class="text-center p-6 bg-gray-50 rounded-2xl">
-                        <img src="https://images.unsplash.com/photo-1481627569372-528a9a287bb7?auto=format&fit=crop&w=400&q=80" alt="Libros" class="w-full h-48 object-cover rounded-xl mb-4">
-                        <h3 class="text-xl font-bold mb-2">Colección Vasta</h3>
-                        <p class="text-gray-600">Desde clásicos literarios hasta las últimas tendencias tecnológicas.</p>
+    <!-- HEADER con menú hamburguesa (javascript vanilla) -->
+    <header class="header-vine text-[#f0f7e6] sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4 relative">
+                <!-- logo + título estilo libro antiguo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[#5b8c5a] rounded-full flex items-center justify-center shadow-lg border border-[#b7d6a5]">
+                        <span class="text-2xl font-story italic font-bold text-[#e9f3d8]">📖</span>
                     </div>
-                    <div class="text-center p-6 bg-gray-50 rounded-2xl">
-                        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=400&q=80" alt="Lectura" class="w-full h-48 object-cover rounded-xl mb-4">
-                        <h3 class="text-xl font-bold mb-2">Acceso 24/7</h3>
-                        <p class="text-gray-600">Lee en línea o descarga para disfrutar offline en cualquier momento.</p>
-                    </div>
-                    <div class="text-center p-6 bg-gray-50 rounded-2xl">
-                        <img src="https://images.unsplash.com/photo-1532012197367-2d5978460f1f?auto=format&fit=crop&w=400&q=80" alt="Comunidad" class="w-full h-48 object-cover rounded-xl mb-4">
-                        <h3 class="text-xl font-bold mb-2">Comunidad Viva</h3>
-                        <p class="text-gray-600">Únete a clubes de lectura y foros de discusión especializados.</p>
+                    <h1 class="font-story text-2xl md:text-3xl font-semibold tracking-wide drop-shadow-lg">
+                        <span class="text-[#dbe9c5]">Bosque</span> <span class="text-[#c4e0b0]">de los</span> <span class="text-[#f5ffe1]">Libros</span>
+                    </h1>
+                </div>
+
+                <!-- Navegación escritorio (siempre visible sm:flex, oculto en móvil) -->
+                <nav class="hidden sm:flex space-x-8 text-[#f2fbe0] font-medium items-center">
+                    <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">Inicio</a>
+                    <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">Catálogo</a>
+                    <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">El claro</a>
+                    <a href="#" class="bg-[#3b6743] hover:bg-[#2b5433] px-5 py-2 rounded-full text-[#f1fce2] border border-[#b0d89b] shadow-md transition font-story text-lg">Iniciar sesión</a>
+                </nav>
+
+                <!-- Botón hamburguesa (solo visible en móvil) -->
+                <button id="menuBtn" class="sm:hocus:outline-none sm:hidden hamburger-btn text-[#1d3e25] focus:outline-none" aria-label="Abrir menú">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 text-[#28522b]">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+
+                <!-- Menú desplegable móvil (hamburguesa) con js vanilla -->
+                <div id="mobileMenu" class="mobile-menu sm:hidden">
+                    <div class="flex flex-col space-y-4 p-6 text-[#1f4029] text-xl font-story">
+                        <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">Inicio</a>
+                        <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">Catálogo</a>
+                        <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">El claro encantado</a>
+                        <a href="#" class="bg-[#427a4f] text-[#f7ffe7] p-3 rounded-xl text-center shadow-inner border border-[#9ccf96] mt-2 hover:bg-[#316b3e] transition">Login</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </header>
 
-        <footer class="bg-gray-900 text-white py-12">
-            <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-3 gap-8 mb-8 border-b border-gray-800 pb-8">
-                    <div>
-                        <h4 class="text-2xl font-bold text-blue-500 mb-4">BiblioTech</h4>
-                        <p class="text-gray-400">Expandiendo las fronteras del conocimiento a través de la tecnología y la pasión por la lectura.</p>
+    <!-- HERO: imagen de bosque + libros + llamada a la acción (tonalidades verdes) -->
+    <section class="relative overflow-hidden">
+        <!-- Imagen de fondo (libre de copyright: bosque brumoso) -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                 alt="Bosque encantado con niebla y rayos de sol" 
+                 class="w-full h-full object-cover object-center image-enchant"
+                 loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#1e4028]/70 via-[#2c583a]/50 to-[#367a49]/60"></div>
+        </div>
+        <!-- contenido hero -->
+        <div class="relative z-10 max-w-6xl mx-auto px-4 py-20 md:py-28 lg:py-36 text-center text-[#efffdf]">
+            <span class="inline-block bg-[#2a6637]/80 backdrop-blur-sm px-6 py-2 rounded-full text-sm tracking-widest border border-[#b1dba9] mb-6 font-story">📚  Biblioteca del Susurro Verde  🍃</span>
+            <h1 class="font-story text-5xl md:text-6xl lg:text-7xl font-bold leading-tight hero-glow">
+                Donde los árboles<br>prestan sus historias
+            </h1>
+            <p class="max-w-2xl mx-auto mt-6 text-lg md:text-xl text-[#e2f2cf] drop-shadow-md bg-[#294f30]/40 p-4 rounded-2xl backdrop-blur-sm">
+                Entre raíces y pergaminos, descubre un mundo de fantasía que aguarda entre hojas centenarias. 
+                Formalidad de biblioteca, alma de bosque encantado.
+            </p>
+            <div class="mt-10 flex flex-wrap justify-center gap-5">
+                <a href="#" class="bg-[#3f7847] hover:bg-[#306637] text-white font-story text-xl px-8 py-4 rounded-full shadow-xl border border-[#b1e0a3] transition flex items-center gap-2">
+                    <span>🌿</span> Explorar catálogo mágico
+                </a>
+                <a href="#" class="bg-[#daeed2]/90 hover:bg-white text-[#1f532b] font-story text-xl px-8 py-4 rounded-full shadow-xl border border-[#91b88d] backdrop-blur-sm transition">
+                    📖  Leer junto al fuego
+                </a>
+            </div>
+        </div>
+        <!-- Ola decorativa inferior (divisor con hojas) -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-12 md:h-20 fill-[#ebf5e3] opacity-70">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
+                <path d="M0,0V15.81C13,21.25,27.93,25.58,44.41,28.59c69.58,12.55,138.93,5.22,208.46-6.86,34.79-6.04,70.3-15.42,106-19.27C507.41,1.66,620,34.28,738.82,54.87c68.44,11.94,135.49,10.74,202.31,1.43C1029.15,42.73,1118,14.2,1200,20.72V0Z" opacity=".5"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="fill-[#e1f0d6]"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DESTACADOS: libros con ambiente de bosque encantado (uso imágenes stock) -->
+    <section class="py-16 bg-[#e5f0db] bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 40L40 0H20L0 20V40Z" fill="%239fc99f" fill-opacity="0.08")'/%3E%3C/svg%3E")]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-story text-5xl text-center text-[#1f4a2a] mb-3">📘  Libros con alma forestal  🍂</h2>
+            <p class="text-center text-[#326c41] max-w-2xl mx-auto text-lg mb-12">Obras que susurran secretos entre raíces y ramas — para lectores que buscan magia auténtica.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- tarjeta 1: imagen de libro antiguo en bosque (stock photo Pexels libre) -->
+                <div class="book-card rounded-3xl overflow-hidden">
+                    <div class="h-56 w-full overflow-hidden">
+                        <img class="stock-img image-enchant" src="https://images.pexels.com/photos/2943805/pexels-photo-2943805.jpeg?auto=compress&cs=tinysrgb&w=600" alt="libro abierto en bosque con hojas secas" loading="lazy">
                     </div>
-                    <div>
-                        <h5 class="text-lg font-semibold mb-4">Enlaces Rápidos</h5>
-                        <ul class="space-y-2 text-gray-400">
-                            <li><a href="#" class="hover:text-blue-400 transition">Sobre Nosotros</a></li>
-                            <li><a href="#" class="hover:text-blue-400 transition">Préstamos Digitales</a></li>
-                            <li><a href="#" class="hover:text-blue-400 transition">Contacto</a></li>
-                        </ul>
-                    </div>
-                <div>
-                        <h5 class="text-lg font-semibold mb-4">Síguenos</h5>
-                        <div class="flex space-x-4">
-                            <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition">FB</a>
-                            <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-blue-400 transition">TW</a>
-                            <a href="#" class="p-2 bg-gray-800 rounded-full hover:bg-pink-600 transition">IG</a>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold tracking-wider text-[#557a4d] bg-[#ddf0ce] px-3 py-1 rounded-full">raíces de conocimiento</span>
+                        <h3 class="font-story text-2xl font-bold mt-3 text-[#1b4d24]">El susurro de las hayas</h3>
+                        <p class="text-[#3d613f] mt-2">Primera edición ilustrada con acuarelas de hongos y duendes. Una joya de la literatura fantástica.</p>
+                        <div class="mt-5 flex justify-between items-center">
+                            <span class="text-[#3b7545] font-medium">✦ disponible</span>
+                            <a href="#" class="text-[#1d6b2c] hover:text-[#134d1f] font-story font-medium border-b border-dotted border-[#3b7545]">más información →</a>
                         </div>
                     </div>
                 </div>
-                <p class="text-center text-gray-500 text-sm">
-                    &copy; 2024 BiblioTech. Todas las imágenes son de Unsplash (Libres de derechos).
-                </p>
+                <!-- tarjeta 2: imagen de bosque brumoso con libros apilados conceptual -->
+                <div class="book-card rounded-3xl overflow-hidden">
+                    <div class="h-56 w-full overflow-hidden">
+                        <img class="stock-img image-enchant" src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=600" alt="pilas de libros antiguos en madera" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold tracking-wider text-[#557a4d] bg-[#ddf0ce] px-3 py-1 rounded-full">polen de tinta</span>
+                        <h3 class="font-story text-2xl font-bold mt-3 text-[#1b4d24]">Cuentos del claro lunar</h3>
+                        <p class="text-[#3d613f] mt-2">Antología de relatos donde los árboles escriben profecías. Incluye mapa del bosque encantado.</p>
+                        <div class="mt-5 flex justify-between items-center">
+                            <span class="text-[#3b7545] font-medium">✦ 3 ejemplares</span>
+                            <a href="#" class="text-[#1d6b2c] hover:text-[#134d1f] font-story font-medium border-b border-dotted border-[#3b7545]">reservar →</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- tarjeta 3: sendero / libro abierto al aire libre -->
+                <div class="book-card rounded-3xl overflow-hidden">
+                    <div class="h-56 w-full overflow-hidden">
+                        <img class="stock-img image-enchant" src="https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&w=600" alt="sendero en bosque verde con rayos de sol" loading="lazy">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-semibold tracking-wider text-[#557a4d] bg-[#ddf0ce] px-3 py-1 rounded-full">guía del caminante</span>
+                        <h3 class="font-story text-2xl font-bold mt-3 text-[#1b4d24]">Manual de hongos parlantes</h3>
+                        <p class="text-[#3d613f] mt-2">Una guía insólita: micología y hechizos de bibliotecario. Incluye anotaciones al margen.</p>
+                        <div class="mt-5 flex justify-between items-center">
+                            <span class="text-[#3b7545] font-medium">✦ disponible</span>
+                            <a href="#" class="text-[#1d6b2c] hover:text-[#134d1f] font-story font-medium border-b border-dotted border-[#3b7545]">hojear →</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </footer>
 
-        <script>
-            const btn = document.getElementById('menu-btn');
-            const menu = document.getElementById('mobile-menu');
+            <!-- enlace a catálogo completo -->
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center gap-2 bg-[#467a50] hover:bg-[#35693f] text-[#f4ffea] px-8 py-3 rounded-full font-story text-xl shadow-xl border border-[#bae0aa] transition">
+                    <span>🍄</span> Descubrir más libros del bosque
+                </a>
+            </div>
+        </div>
+    </section>
 
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
+    <!-- FOOTER estilo musgo + enredaderas -->
+    <footer class="footer-moss text-[#ddf0cf] border-t-4 border-[#5f946b]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- col logo + esencia -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">🌲</span>
+                        <h3 class="font-story text-2xl font-semibold text-[#eafada]">Bosque de los Libros</h3>
+                    </div>
+                    <p class="text-[#cbe5bd] text-sm">Biblioteca formal con corazón de bosque encantado. Política de préstamos: devolver antes del próximo solsticio.</p>
+                </div>
+                <!-- enlaces -->
+                <div>
+                    <h4 class="font-story text-xl mb-3 border-b border-[#70a072] pb-1">Navegar</h4>
+                    <ul class="space-y-2 text-[#daf0ca]">
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🍂</span> Inicio</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🍃</span> Catálogo</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🌿</span> Eventos del claro</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>📖</span> Club de lectura</a></li>
+                    </ul>
+                </div>
+                <!-- cuenta -->
+                <div>
+                    <h4 class="font-story text-xl mb-3 border-b border-[#70a072] pb-1">Acceso</h4>
+                    <ul class="space-y-2 text-[#daf0ca]">
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🔐</span> Iniciar sesión</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>📌</span> Registro</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🪶</span> Mi carnet</a></li>
+                    </ul>
+                </div>
+                <!-- ubicación fantástica -->
+                <div>
+                    <h4 class="font-story text-xl mb-3 border-b border-[#70a072] pb-1">El claro</h4>
+                    <address class="not-italic text-[#daf0ca]">
+                        <p>🌳 Camino de las Hayas, 7</p>
+                        <p>🌲 Bosque de Brocelianda</p>
+                        <p class="mt-3">📧 hola@bosqueencantado.biblio</p>
+                        <p>🕰️ Abierto durante las horas de luz y luna llena</p>
+                    </address>
+                </div>
+            </div>
+            <div class="border-t border-[#7fad82] mt-8 pt-6 text-center text-sm text-[#c6e2b5]">
+                <p>© 2025 · Biblioteca del Bosque Encantado · imágenes de Pexels (licencia gratis) · magia responsiva con vanilla JS y Tailwind</p>
+            </div>
+        </div>
+    </footer>
 
-            // Cerrar menú al hacer clic en un enlace (opcional)
-            const links = menu.querySelectorAll('a');
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    menu.classList.add('hidden');
+    <!-- JavaScript vanilla para menú hamburguesa (sin frameworks) -->
+    <script>
+        (function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // evitar conflictos
+                    mobileMenu.classList.toggle('open');
+                    
+                    // cambio de aria-expanded (opcional)
+                    const expanded = mobileMenu.classList.contains('open');
+                    menuBtn.setAttribute('aria-expanded', expanded);
                 });
-            });
-        </script>
-    </body>
+
+                // Cerrar menú al hacer click fuera (opcional, buena ux)
+                document.addEventListener('click', function(event) {
+                    if (!menuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.remove('open');
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Evitar que clicks dentro del menú lo cierren (ya lo controla el documento)
+                // También cerrar con tecla Escape
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                        mobileMenu.classList.remove('open');
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            // Ajuste de aria-label por si acaso
+            if (menuBtn) {
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.setAttribute('aria-controls', 'mobileMenu');
+            }
+        })();
+    </script>
+
+    <!-- Nota: todas las imágenes son de Pexels con licencia gratis (dominio público / CC - verificación en pexels.com) 
+         Atribución no requerida, pero se mencionan en footer como cortesía. 
+         Se eligieron escenas de bosques y libros para mantener tono verde y fantasía -->
+</body>
 </html>
