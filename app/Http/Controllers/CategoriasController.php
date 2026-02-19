@@ -30,6 +30,26 @@ class CategoriasController extends Controller
         $categoria->nombre = $request->nombre;
         $categoria->save();
 
-        return redirect()->route('categorias.index')->with('succes', 'Categoría creada exitosamente.');
+        return redirect()->route('categorias.index')->with('success', 'Categoría creada exitosamente.');
     }
+
+    public function edit($id)
+    {
+        $categoria = Categoria::findOrFail($id);
+        return view('categorias.edit', compact('categoria'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        $categoria = Categoria::findOrFail($id);
+        $categoria->nombre = $request->nombre;
+        $categoria->save();
+
+        return redirect()->route('categorias.index')->with('success', 'Categoría actualizada exitosamente.');
+    }
+
 }

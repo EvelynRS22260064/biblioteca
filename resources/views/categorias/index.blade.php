@@ -50,7 +50,7 @@
                             <td class="px-6 py-4 text-[#2d5a36]">{{ $categoria->nombre }}</td>
                             <td class="px-6 py-4">
                                 <div class="flex gap-3 text-sm">
-                                    <a href="#" class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
+                                    <a href="{{ route('categorias.edit', $categoria->id) }}" class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
                                         <i class="fa-solid fa-edit"></i> Editar
                                     </a>
                                     <a href="#" class="text-[#b85c5c] hover:text-[#a04545] transition flex items-center gap-1">
