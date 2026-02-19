@@ -120,7 +120,7 @@
                     <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">Inicio</a>
                     <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">Catálogo</a>
                     <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">El claro</a>
-                    <a href="#" class="bg-[#3b6743] hover:bg-[#2b5433] px-5 py-2 rounded-full text-[#f1fce2] border border-[#b0d89b] shadow-md transition font-story text-lg">Iniciar sesión</a>
+                    <a href="{{ route('login') }}" class="bg-[#3b6743] hover:bg-[#2b5433] px-5 py-2 rounded-full text-[#f1fce2] border border-[#b0d89b] shadow-md transition font-story text-lg">Iniciar sesión</a>
                 </nav>
 
                 <!-- Botón hamburguesa (solo visible en móvil) -->
@@ -136,7 +136,7 @@
                         <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">Inicio</a>
                         <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">Catálogo</a>
                         <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">El claro encantado</a>
-                        <a href="#" class="bg-[#427a4f] text-[#f7ffe7] p-3 rounded-xl text-center shadow-inner border border-[#9ccf96] mt-2 hover:bg-[#316b3e] transition">Login</a>
+                        <a href="{{ route('login') }}" class="bg-[#427a4f] text-[#f7ffe7] p-3 rounded-xl text-center shadow-inner border border-[#9ccf96] mt-2 hover:bg-[#316b3e] transition">Login</a>
                     </div>
                 </div>
             </div>

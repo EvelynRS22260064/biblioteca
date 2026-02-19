@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso al Bosque · Login & Registro</title>
+    <!-- Tailwind via CDN + capa base personalizada para tonos verdes / fantasía (mismo diseño que home) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuente serif con aire de cuento (formal pero mágico) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ambientación boscosa y detalles de libro antiguo (mismos estilos que la home para mantener consistencia) */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f4f7f0;
+        }
+        .font-story {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .header-vine {
+            background: linear-gradient(180deg, #2f5a3a 0%, #4b7b5e 100%);
+            box-shadow: 0 4px 10px rgba(30, 60, 30, 0.2);
+        }
+        .hero-glow {
+            text-shadow: 2px 2px 8px #2c4a2e, 0 0 20px #b8d9b0;
+        }
+        /* menú hamburguesa (mismo que home, por si se necesita en estas páginas) */
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.2s;
+            transform: scaleY(0);
+            transform-origin: top;
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 100%;
+            background: #edf3e7;
+            border-top: 2px solid #3b6e4b;
+            box-shadow: 0 12px 20px -8px #2b4633;
+            z-index: 50;
+        }
+        .mobile-menu.open {
+            transform: scaleY(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .hamburger-btn {
+            background: rgba(255,255,240,0.5);
+            border-radius: 12px;
+            padding: 0.5rem 0.7rem;
+            border: 1px solid #598b6b;
+        }
+        /* Estilos compartidos para formularios (login y registro) - diseño pergamino/bosque */
+        .form-card {
+            background: rgba(245, 250, 235, 0.9);
+            backdrop-filter: blur(4px);
+            border: 2px solid #7fa07b;
+            box-shadow: 0 20px 30px -15px #1f4029, 0 0 0 1px #b7d6a5 inset;
+            border-radius: 40px 12px 40px 12px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #fafff2;
+            border: 1px solid #8bb682;
+            border-radius: 30px 8px 30px 8px;
+            color: #1b4a27;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #3b7846;
+            box-shadow: 0 0 0 3px rgba(88, 150, 90, 0.3);
+            background: #ffffff;
+        }
+        .form-label {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1c4527;
+            margin-bottom: 0.3rem;
+            margin-left: 0.5rem;
+        }
+        .btn-primary {
+            background: #3f7847;
+            border: 1px solid #9bcf98;
+            color: #f6ffe7;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border-radius: 40px 10px 40px 10px;
+            box-shadow: 0 8px 0 #1b4823, 0 6px 12px #2e6137;
+            transition: all 0.1s ease-out;
+            width: 100%;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background: #4c8f55;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 0 #1b4823, 0 10px 18px #2a5b33;
+        }
+        .btn-primary:active {
+            transform: translateY(5px);
+            box-shadow: 0 3px 0 #1b4823, 0 8px 12px #23522b;
+        }
+        .image-enchant {
+            filter: sepia(0.15) hue-rotate(5deg) brightness(1.02);
+            border-radius: 20px 4px 20px 4px;
+            border: 2px solid #6f936f;
+        }
+        .footer-moss {
+            background: #2b4b31;
+            background-image: radial-gradient(circle at 20% 40%, #4a7856 2px, transparent 2px), 
+                              radial-gradient(circle at 80% 70%, #5e8b66 1px, transparent 2px);
+            background-size: 40px 40px;
+        }
+        /* decoración extra para el hero de formularios */
+        .hero-pattern {
+            background: rgba(30, 70, 40, 0.3);
+            backdrop-filter: blur(2px);
+        }
+    </style>
+</head>
+<body class="antialiased text-[#1f3b2c]">
+
+    <!-- ========== HEADER (idéntico al de la home, con menú hamburguesa) ========== -->
+    <header class="header-vine text-[#f0f7e6] sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4 relative">
+                <!-- logo + título estilo libro antiguo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[#5b8c5a] rounded-full flex items-center justify-center shadow-lg border border-[#b7d6a5]">
+                        <span class="text-2xl font-story italic font-bold text-[#e9f3d8]">📖</span>
+                    </div>
+                    <h1 class="font-story text-2xl md:text-3xl font-semibold tracking-wide drop-shadow-lg">
+                        <span class="text-[#dbe9c5]">Bosque</span> <span class="text-[#c4e0b0]">de los</span> <span class="text-[#f5ffe1]">Libros</span>
+                    </h1>
+                </div>
+
+                <!-- Navegación escritorio -->
+                <nav class="hidden sm:flex space-x-8 text-[#f2fbe0] font-medium items-center">
+                    <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">Inicio</a>
+                    <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">Catálogo</a>
+                    <a href="#" class="border-b-2 border-transparent hover:border-[#b5e0a3] px-1 py-1 text-lg transition font-story">El claro</a>
+                    <a href="#" class="bg-[#3b6743] hover:bg-[#2b5433] px-5 py-2 rounded-full text-[#f1fce2] border border-[#b0d89b] shadow-md transition font-story text-lg">Iniciar sesión</a>
+                </nav>
+
+                <!-- Botón hamburguesa (solo móvil) -->
+                <button id="menuBtn" class="sm:hocus:outline-none sm:hidden hamburger-btn text-[#1d3e25] focus:outline-none" aria-label="Abrir menú">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 text-[#28522b]">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+
+                <!-- Menú desplegable móvil (hamburguesa) -->
+                <div id="mobileMenu" class="mobile-menu sm:hidden">
+                    <div class="flex flex-col space-y-4 p-6 text-[#1f4029] text-xl font-story">
+                        <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">Inicio</a>
+                        <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">Catálogo</a>
+                        <a href="#" class="hover:bg-[#c3dfb5] p-3 rounded-xl pl-5 border-l-4 border-transparent hover:border-[#396f45] transition">El claro encantado</a>
+                        <a href="#" class="bg-[#427a4f] text-[#f7ffe7] p-3 rounded-xl text-center shadow-inner border border-[#9ccf96] mt-2 hover:bg-[#316b3e] transition">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== HERO COMBINADO: LOGIN Y REGISTRO (ambos en un contenedor hero) ========== -->
+    <section class="relative overflow-hidden">
+        <!-- Imagen de fondo (bosque mágico) misma que en home para mantener unidad -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+                 alt="Bosque encantado con niebla y rayos de sol" 
+                 class="w-full h-full object-cover object-center image-enchant"
+                 loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#1e4028]/80 via-[#2c583a]/60 to-[#367a49]/70"></div>
+        </div>
+
+        <!-- Contenedor hero con dos formularios: login y registro uno al lado del otro (responsive stack) -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 py-16 md:py-24">
+            <!-- Título hero unificado sutil -->
+            <div class="text-center mb-12">
+                <span class="inline-block bg-[#2a6637]/80 backdrop-blur-sm px-6 py-2 rounded-full text-sm tracking-widest border border-[#b1dba9] mb-4 font-story text-[#f6ffe7]">🍂  ACCEDE AL CLARO DE LOS LIBROS  🍂</span>
+                <h2 class="font-story text-4xl md:text-5xl text-[#f1ffe3] hero-glow">Identifícate en el bosque</h2>
+                <p class="text-[#e2f0cf] max-w-2xl mx-auto mt-3 text-lg bg-[#294f30]/30 p-3 rounded-2xl backdrop-blur-sm">Usa tu cuenta de lector o crea una nueva para llevar historias a tu hogar.</p>
+            </div>
+
+            <!-- Contenedor flexible para los dos formularios (primero login, luego registro) -->
+            <div class="flex flex-col lg:flex-row gap-8 items-stretch justify-center">
+                
+                <!-- === FORMULARIO DE LOGIN (campos: email y password, sin js) === -->
+                <div class="flex-1 max-w-md mx-auto lg:mx-0 w-full">
+                    <div class="form-card p-8">
+                        <h3 class="font-story text-3xl font-bold text-[#1a4524] mb-2 flex items-center gap-2 border-b border-[#99bF8c] pb-3">
+                            <span>🔐</span> Acceso de lectores
+                        </h3>
+                        <p class="text-[#34633e] mb-6 text-sm">Introduce tus credenciales mágicas</p>
+                        
+                        <form class="space-y-6" action="#" method="post">
+                            <!-- Campo email -->
+                            <div>
+                                <label class="form-label" for="login-email">Correo electrónico</label>
+                                <input type="email" id="login-email" name="email" required 
+                                       class="form-input" 
+                                       placeholder="lector@bosqueencantado.biblio">
+                            </div>
+                            <!-- Campo password -->
+                            <div>
+                                <label class="form-label" for="login-password">Contraseña</label>
+                                <input type="password" id="login-password" name="password" required 
+                                       class="form-input" 
+                                       placeholder="············">
+                            </div>
+                            <!-- Enlace de ayuda (opcional) -->
+                            <div class="text-right">
+                                <a href="#" class="text-sm text-[#2e693b] hover:text-[#174d22] underline decoration-dotted">¿Olvidaste el conjuro?</a>
+                            </div>
+                            <!-- Botón submit (sin js) -->
+                            <button type="submit" class="btn-primary">Entrar al bosque</button>
+                        </form>
+                        
+                        <!-- Separador con texto -->
+                        <div class="relative my-6">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-[#98b68d]"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-3 bg-[#f2faeb] text-[#286132] rounded-full font-story">hojas del bosque</span>
+                            </div>
+                        </div>
+                        
+                        <p class="text-center text-[#3f6540]">
+                            ¿No tienes cuenta? <a href="#" class="font-story font-bold text-[#256f35] hover:underline">crea tu grimorio</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- === FORMULARIO DE REGISTRO (campos: nombre, apellido, email, password, repetir password) === -->
+                <div class="flex-1 max-w-md mx-auto lg:mx-0 w-full">
+                    <div class="form-card p-8">
+                        <h3 class="font-story text-3xl font-bold text-[#1a4524] mb-2 flex items-center gap-2 border-b border-[#99bF8c] pb-3">
+                            <span>🌱</span> Nuevo habitante
+                        </h3>
+                        <p class="text-[#34633e] mb-6 text-sm">Regístrate para llevar libros a tu cueva</p>
+                        
+                        <form class="space-y-5" action="#" method="post">
+                            <!-- Fila nombre y apellido (responsive) -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="form-label" for="reg-nombre">Nombre</label>
+                                    <input type="text" id="reg-nombre" name="nombre" required 
+                                           class="form-input" 
+                                           placeholder="Ej. Elara">
+                                </div>
+                                <div>
+                                    <label class="form-label" for="reg-apellido">Apellido</label>
+                                    <input type="text" id="reg-apellido" name="apellido" required 
+                                           class="form-input" 
+                                           placeholder="Ej. Del Bosque">
+                                </div>
+                            </div>
+                            
+                            <!-- Email -->
+                            <div>
+                                <label class="form-label" for="reg-email">Correo electrónico</label>
+                                <input type="email" id="reg-email" name="email" required 
+                                       class="form-input" 
+                                       placeholder="correo@ejemplo.com">
+                            </div>
+                            
+                            <!-- Password y repetir password -->
+                            <div>
+                                <label class="form-label" for="reg-password">Contraseña</label>
+                                <input type="password" id="reg-password" name="password" required 
+                                       class="form-input" 
+                                       placeholder="Mínimo 8 caracteres">
+                            </div>
+                            
+                            <div>
+                                <label class="form-label" for="reg-password2">Repetir contraseña</label>
+                                <input type="password" id="reg-password2" name="password2" required 
+                                       class="form-input" 
+                                       placeholder="Confirmar">
+                            </div>
+                            
+                            <!-- Aceptar términos (toque de fantasía) -->
+                            <div class="flex items-start gap-2 mt-2">
+                                <input type="checkbox" id="terms" class="mt-1 accent-[#3f7847] w-4 h-4">
+                                <label for="terms" class="text-sm text-[#1f542b]">Acepto el conjuro de privacidad y que los árboles guarden mis datos.</label>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary mt-4">Crear grimorio (registrarse)</button>
+                        </form>
+                        
+                        <p class="text-center text-[#3f6540] text-sm mt-5">
+                            ✦ Los duendes bibliotecarios custodiarán tus datos ✦
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ola decorativa inferior (transición al footer) misma que home -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-12 md:h-20 fill-[#ebf5e3] opacity-70">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
+                <path d="M0,0V15.81C13,21.25,27.93,25.58,44.41,28.59c69.58,12.55,138.93,5.22,208.46-6.86,34.79-6.04,70.3-15.42,106-19.27C507.41,1.66,620,34.28,738.82,54.87c68.44,11.94,135.49,10.74,202.31,1.43C1029.15,42.73,1118,14.2,1200,20.72V0Z" opacity=".5"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="fill-[#e1f0d6]"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER (idéntico a la home, mantiene consistencia) ========== -->
+    <footer class="footer-moss text-[#ddf0cf] border-t-4 border-[#5f946b]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- col logo + esencia -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">🌲</span>
+                        <h3 class="font-story text-2xl font-semibold text-[#eafada]">Bosque de los Libros</h3>
+                    </div>
+                    <p class="text-[#cbe5bd] text-sm">Biblioteca formal con corazón de bosque encantado. Política de préstamos: devolver antes del próximo solsticio.</p>
+                </div>
+                <!-- enlaces -->
+                <div>
+                    <h4 class="font-story text-xl mb-3 border-b border-[#70a072] pb-1">Navegar</h4>
+                    <ul class="space-y-2 text-[#daf0ca]">
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🍂</span> Inicio</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🍃</span> Catálogo</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🌿</span> Eventos del claro</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>📖</span> Club de lectura</a></li>
+                    </ul>
+                </div>
+                <!-- cuenta -->
+                <div>
+                    <h4 class="font-story text-xl mb-3 border-b border-[#70a072] pb-1">Acceso</h4>
+                    <ul class="space-y-2 text-[#daf0ca]">
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🔐</span> Iniciar sesión</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>📌</span> Registro</a></li>
+                        <li><a href="#" class="hover:text-white transition flex items-center gap-1"><span>🪶</span> Mi carnet</a></li>
+                    </ul>
+                </div>
+                <!-- ubicación fantástica -->
+                <div>
+                    <h4 class="font-story text-xl mb-3 border-b border-[#70a072] pb-1">El claro</h4>
+                    <address class="not-italic text-[#daf0ca]">
+                        <p>🌳 Camino de las Hayas, 7</p>
+                        <p>🌲 Bosque de Brocelianda</p>
+                        <p class="mt-3">📧 hola@bosqueencantado.biblio</p>
+                        <p>🕰️ Abierto durante las horas de luz y luna llena</p>
+                    </address>
+                </div>
+            </div>
+            <div class="border-t border-[#7fad82] mt-8 pt-6 text-center text-sm text-[#c6e2b5]">
+                <p>© 2025 · Biblioteca del Bosque Encantado · imágenes de Pexels (licencia gratis) · magia responsiva con vanilla JS y Tailwind</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript vanilla para menú hamburguesa (mismo que home) -->
+    <script>
+        (function() {
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mobileMenu.classList.toggle('open');
+                    const expanded = mobileMenu.classList.contains('open');
+                    menuBtn.setAttribute('aria-expanded', expanded);
+                });
+
+                document.addEventListener('click', function(event) {
+                    if (!menuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.remove('open');
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                        mobileMenu.classList.remove('open');
+                        menuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            if (menuBtn) {
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.setAttribute('aria-controls', 'mobileMenu');
+            }
+        })();
+    </script>
+
+    <!-- Los formularios son puramente HTML/CSS, sin lógica javascript adicional. 
+         Las clases como .form-card, .form-input, .btn-primary están compartidas y listas para reutilizar 
+         en cualquier otra página (login/registro). 
+         Se respeta header, hero (con ambos formularios dentro) y footer como secciones claramente diferenciadas. -->
+</body>
+</html>

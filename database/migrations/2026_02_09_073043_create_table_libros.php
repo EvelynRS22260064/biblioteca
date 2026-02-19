@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('nombre', 250)
+            $table->string('nombre', 250);
         });
 
-        Schema::create('Libros', function (Blueprint $table) {
+        Schema::create('libros', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('nombre', 250);
