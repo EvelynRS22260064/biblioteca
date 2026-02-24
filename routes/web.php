@@ -3,24 +3,26 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\CategoriasController; // ← CORREGIDO (con 'a')
+use App\Http\Controllers\LibroController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 // Rutas de autenticación
-Route::get('/login', [AuthController::class, 'loginForm'])->name('login');      // GET - muestra formulario
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');    // POST - procesa login
+Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-// Rutas protegidas (requieren login)
+// Rutas protegidas
 Route::middleware('auth')->group(function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/categorias', [CategoriasController::class, 'index'])->name('categorias.index');
-    Route::get('/categorias/create', [CategoriasController::class, 'create'])->name('categorias.create');
-    Route::post('/categorias/store', [CategoriasController::class, 'store'])->name('categorias.store');
-    Route::get('/categorias/{id}/edit', [CategoriasController::class, 'edit'])->name('categorias.edit');
-    Route::put('/categorias/{id}', [CategoriasController::class, 'update'])->name('categorias.update');
+    
+    // Rutas de categorías (CORREGIDO)
+    Route::resource('categorias', CategoriasController::class);
+    
+    // Rutas de libros
+    Route::resource('libros', LibroController::class);
 });

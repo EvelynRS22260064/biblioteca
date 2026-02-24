@@ -216,6 +216,37 @@
             border: 1px solid #c2a15b;
         }
 
+        /* ===== ICONOS DE SPARKLES ===== */
+        .fa-sparkles {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+        /* ===== MEJORAS EN FORM-INPUT ===== */
+        .form-input {
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px #1f4a2a;
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .fa-leaf {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .fa-tree {
+            animation: float 4s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .sidebar {
@@ -266,10 +297,10 @@
                     <span>Usuarios</span>
                 </a>
                 
-                <a href="#" class="sidebar-link">
-                    <i class="fa-solid fa-book"></i>
-                    <span>Libros</span>
-                </a>
+                <a href="{{ route('libros.index') }}" class="sidebar-link {{ request()->routeIs('libros*') ? 'active' : '' }}">
+    <i class="fa-solid fa-book"></i>
+    <span>Libros</span>
+</a>
 
                 <a href="{{ route('categorias.index')}}" class="sidebar-link">
                     <i class="fa-tags fa-users"></i>
@@ -332,6 +363,21 @@
                     </div>
                 </div>
             </header>
+
+            <!-- ===== MENSAJES FLASH GLOBALES (AGREGADOS AQUÍ) ===== -->
+            @if(session('success'))
+                <div class="mx-4 sm:mx-0 mb-6 p-4 bg-[#d8ecd0] border border-[#5b9c5a] text-[#1f4a2a] rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-leaf text-[#3f7847]"></i>
+                    <span>{{ session('success') }}</span>
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="mx-4 sm:mx-0 mb-6 p-4 bg-[#f8e1e1] border border-[#b85c5c] text-[#b85c5c] rounded-xl flex items-center gap-2">
+                    <i class="fa-solid fa-exclamation-circle"></i>
+                    <span>{{ session('error') }}</span>
+                </div>
+            @endif
 
             <!-- Contenido específico de cada página -->
             @yield('content')

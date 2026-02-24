@@ -1,12 +1,12 @@
 @extends('layout.admin')
 
 @section('page-title', 'Categorías')
-@section('page-description', 'Gestiona las categorías de los libros del bosque')
+@section('page-description', 'Gestiona las categorías de los libros del bosque encantado')
 
 @section('content')
 <div class="p-4 sm:p-8">
     <div class="container mx-auto px-4 py-8">
-        <!-- Header con estilo del bosque -->
+        <!-- Header con estilo del bosque (IGUAL al que ya usas) -->
         <div class="mb-8 relative">
             <div class="absolute -top-4 -left-4 w-32 h-32 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
             <h1 class="font-story text-4xl md:text-5xl font-bold text-[#1f4a2a] mb-3 relative">
@@ -18,14 +18,30 @@
             </p>
         </div>
 
-            <div class="mb-6 flex justify-end">
-            <a href="{{ route('categorias.create') }}"
-            class="bg-[#3f7847] hover:bg-[#4c8f55] text-white px-6 py-3 rounded-full font-story flex items-center gap-2 border border-[#9bcf98] shadow-lg transition">
+        <!-- Mensajes de éxito/error (con diseño verde) -->
+        @if(session('success'))
+            <div class="mb-6 p-4 bg-[#d8ecd0] border border-[#5b9c5a] text-[#1f4a2a] rounded-xl flex items-center gap-2">
+                <i class="fa-solid fa-leaf text-[#3f7847]"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="mb-6 p-4 bg-[#f8e1e1] border border-[#b85c5c] text-[#b85c5c] rounded-xl flex items-center gap-2">
+                <i class="fa-solid fa-exclamation-circle"></i>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
+        <!-- Botón de agregar (con TU estilo btn-primary) -->
+        <div class="mb-6 flex justify-end">
+            <a href="{{ route('categorias.create') }}" 
+               class="bg-[#3f7847] hover:bg-[#4c8f55] text-white px-6 py-3 rounded-full font-story flex items-center gap-2 border border-[#9bcf98] shadow-lg transition">
                 <i class="fa-solid fa-plus"></i> Nueva categoría
             </a>
         </div>
 
-        <!-- Tarjeta con la tabla (estilo pergamino) -->
+        <!-- Tarjeta con la tabla (estilo form-card que ya usas) -->
         <div class="form-card overflow-hidden">
             <div class="p-6 border-b border-[#99bF8c]">
                 <h2 class="font-story text-2xl font-bold text-[#1a4524] flex items-center gap-2">
@@ -38,9 +54,9 @@
                 <table class="min-w-full table-auto admin-table">
                     <thead>
                         <tr>
-                            <th class='px-6 py-4 text-left'>ID</th>
-                            <th class='px-6 py-4 text-left'>Nombre</th>
-                            <th class='px-6 py-4 text-left'>Acciones</th>
+                            <th class="px-6 py-4 text-left">ID</th>
+                            <th class="px-6 py-4 text-left">Nombre</th>
+                            <th class="px-6 py-4 text-left">Acciones</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-[#c3dfb5]">
@@ -50,12 +66,24 @@
                             <td class="px-6 py-4 text-[#2d5a36]">{{ $categoria->nombre }}</td>
                             <td class="px-6 py-4">
                                 <div class="flex gap-3 text-sm">
-                                    <a href="{{ route('categorias.edit', $categoria->id) }}" class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
+                                    <!-- Botón Editar (con TU estilo) -->
+                                    <a href="{{ route('categorias.edit', $categoria->id) }}" 
+                                       class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
                                         <i class="fa-solid fa-edit"></i> Editar
                                     </a>
-                                    <a href="#" class="text-[#b85c5c] hover:text-[#a04545] transition flex items-center gap-1">
-                                        <i class="fa-solid fa-trash"></i> Eliminar
-                                    </a>
+                                    
+                                    <!-- Botón Eliminar (con TU estilo y confirmación) -->
+                                    <form action="{{ route('categorias.destroy', $categoria->id) }}" 
+                                          method="POST" 
+                                          class="inline"
+                                          onsubmit="return confirm('¿Estás seguro de eliminar la categoría {{ $categoria->nombre }}? Esta acción no se puede deshacer.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="text-[#b85c5c] hover:text-[#a04545] transition flex items-center gap-1">
+                                            <i class="fa-solid fa-trash"></i> Eliminar
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -63,13 +91,15 @@
                     </tbody>
                 </table>
             </div>
+        </div>
 
-            <!-- Si tienes paginación, la puedes poner aquí -->
-            @if(isset($categorias) && method_exists($categorias, 'links'))
-            <div class="p-6 border-t border-[#99bF8c]">
-                {{ $categorias->links() }}
-            </div>
-            @endif
+        <!-- Decoración del bosque (opcional, como en tus otras páginas) -->
+        <div class="mt-8 text-center">
+            <p class="text-sm text-[#8bb682]">
+                <i class="fa-solid fa-leaf"></i>
+                <i class="fa-solid fa-leaf mx-2"></i>
+                <i class="fa-solid fa-leaf"></i>
+            </p>
         </div>
     </div>
 </div>
