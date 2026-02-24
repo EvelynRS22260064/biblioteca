@@ -78,9 +78,9 @@
                 <h3 class="font-story font-bold text-[#1f4a2a]">Nuevo libro</h3>
                 <p class="text-xs text-[#5b8c5a]">Agregar ejemplar al catálogo</p>
             </div>
-            <button class="ml-auto text-[#3f7847] hover:text-[#1f4a2a]">
+            <a href="{{ route('libros.create') }}" class="ml-auto text-[#3f7847] hover:text-[#1f4a2a]">
                 <i class="fa-solid fa-arrow-right"></i>
-            </button>
+            </a>
         </div>
         
         <div class="admin-card p-5 flex items-center gap-4">
@@ -91,9 +91,9 @@
                 <h3 class="font-story font-bold text-[#1f4a2a]">Nuevo lector</h3>
                 <p class="text-xs text-[#5b8c5a]">Registrar habitante del bosque</p>
             </div>
-            <button class="ml-auto text-[#3f7847] hover:text-[#1f4a2a]">
+            <a href="#" class="ml-auto text-[#3f7847] hover:text-[#1f4a2a]">
                 <i class="fa-solid fa-arrow-right"></i>
-            </button>
+            </a>
         </div>
         
         <div class="admin-card p-5 flex items-center gap-4">
@@ -104,9 +104,9 @@
                 <h3 class="font-story font-bold text-[#1f4a2a]">Reportes</h3>
                 <p class="text-xs text-[#5b8c5a]">Estadísticas del claro</p>
             </div>
-            <button class="ml-auto text-[#3f7847] hover:text-[#1f4a2a]">
+            <a href="#" class="ml-auto text-[#3f7847] hover:text-[#1f4a2a]">
                 <i class="fa-solid fa-arrow-right"></i>
-            </button>
+            </a>
         </div>
     </div>
 
@@ -119,9 +119,9 @@
                 </h2>
                 <p class="text-[#34633e] text-sm">Lista completa de ejemplares en el claro</p>
             </div>
-            <button class="bg-[#3f7847] hover:bg-[#4c8f55] text-white px-6 py-3 rounded-full font-story flex items-center gap-2 border border-[#9bcf98] shadow-lg transition">
+            <a href="{{ route('libros.create') }}" class="bg-[#3f7847] hover:bg-[#4c8f55] text-white px-6 py-3 rounded-full font-story flex items-center gap-2 border border-[#9bcf98] shadow-lg transition">
                 <i class="fa-solid fa-plus"></i> Agregar libro
-            </button>
+            </a>
         </div>
         
         <!-- Tabla responsive -->
@@ -138,94 +138,70 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#c3dfb5]">
+                    @forelse($libros ?? [] as $libro)
                     <tr class="hover:bg-[#e5f0db] transition">
-                        <td class="px-6 py-4 font-medium text-[#1f4a2a]">Cien años de soledad</td>
-                        <td class="px-6 py-4">Gabriel García Márquez</td>
-                        <td class="px-6 py-4 font-mono text-xs">978-0307474728</td>
+                        <td class="px-6 py-4 font-medium text-[#1f4a2a]">{{ $libro->titulo ?? 'Sin título' }}</td>
+                        <td class="px-6 py-4">{{ $libro->autor ?? 'Desconocido' }}</td>
+                        <td class="px-6 py-4 font-mono text-xs">{{ $libro->isbn ?? 'N/A' }}</td>
                         <td class="px-6 py-4">
-                            <span class="badge badge-success">Literatura</span>
+                            @if(isset($libro->categoria) && $libro->categoria)
+                                <span class="badge badge-success">{{ $libro->categoria->nombre }}</span>
+                            @else
+                                <span class="badge badge-warning">Sin categoría</span>
+                            @endif
                         </td>
                         <td class="px-6 py-4">
-                            <span class="flex items-center gap-1 text-[#3f7847] font-bold">
-                                <i class="fa-solid fa-leaf text-xs"></i> Disponible
-                            </span>
+                            @if(($libro->estado ?? 'disponible') == 'disponible')
+                                <span class="flex items-center gap-1 text-[#3f7847] font-bold">
+                                    <i class="fa-solid fa-leaf text-xs"></i> Disponible
+                                </span>
+                            @else
+                                <span class="flex items-center gap-1 text-[#b8860b] font-bold">
+                                    <i class="fa-solid fa-hourglass-half"></i> Prestado
+                                </span>
+                            @endif
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex gap-3 text-sm">
-                                <a href="#" class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
+                                <a href="{{ route('libros.edit', $libro->id) }}" class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
                                     <i class="fa-solid fa-edit"></i> Editar
                                 </a>
-                                <a href="#" class="text-[#b85c5c] hover:text-[#a04545] transition flex items-center gap-1">
-                                    <i class="fa-solid fa-trash"></i> Eliminar
-                                </a>
+                                <form action="{{ route('libros.destroy', $libro->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Eliminar libro?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-[#b85c5c] hover:text-[#a04545] transition flex items-center gap-1">
+                                        <i class="fa-solid fa-trash"></i> Eliminar
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
-                    <tr class="hover:bg-[#e5f0db] transition">
-                        <td class="px-6 py-4 font-medium text-[#1f4a2a]">1984</td>
-                        <td class="px-6 py-4">George Orwell</td>
-                        <td class="px-6 py-4 font-mono text-xs">978-0451524935</td>
-                        <td class="px-6 py-4">
-                            <span class="badge badge-warning">Ciencia Ficción</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="flex items-center gap-1 text-[#b8860b] font-bold">
-                                <i class="fa-solid fa-hourglass-half"></i> Prestado
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex gap-3 text-sm">
-                                <a href="#" class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
-                                    <i class="fa-solid fa-edit"></i> Editar
-                                </a>
-                                <a href="#" class="text-[#b85c5c] hover:text-[#a04545] transition flex items-center gap-1">
-                                    <i class="fa-solid fa-trash"></i> Eliminar
-                                </a>
-                            </div>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="px-6 py-12 text-center text-[#5b8c5a]">
+                            <i class="fa-solid fa-leaf text-3xl mb-2 block"></i>
+                            <p class="font-story text-lg">No hay libros en el catálogo</p>
+                            <a href="{{ route('libros.create') }}" class="text-[#3f7847] hover:text-[#1f4a2a] underline decoration-dotted mt-2 inline-block">
+                                Agrega el primer libro
+                            </a>
                         </td>
                     </tr>
-                    <tr class="hover:bg-[#e5f0db] transition">
-                        <td class="px-6 py-4 font-medium text-[#1f4a2a]">El hobbit</td>
-                        <td class="px-6 py-4">J.R.R. Tolkien</td>
-                        <td class="px-6 py-4 font-mono text-xs">978-0547928227</td>
-                        <td class="px-6 py-4">
-                            <span class="badge badge-success">Fantasía</span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="flex items-center gap-1 text-[#3f7847] font-bold">
-                                <i class="fa-solid fa-leaf text-xs"></i> Disponible
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex gap-3 text-sm">
-                                <a href="#" class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
-                                    <i class="fa-solid fa-edit"></i> Editar
-                                </a>
-                                <a href="#" class="text-[#b85c5c] hover:text-[#a04545] transition flex items-center gap-1">
-                                    <i class="fa-solid fa-trash"></i> Eliminar
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
         
         <!-- Paginación -->
+        @if(isset($libros) && method_exists($libros, 'links') && $libros->total() > 0)
         <div class="p-6 border-t border-[#99bF8c] flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p class="text-xs text-[#5b8c5a]">Mostrando 1-3 de 24 libros</p>
+            <p class="text-xs text-[#5b8c5a]">
+                Mostrando {{ $libros->firstItem() ?? 1 }}-{{ $libros->lastItem() ?? count($libros) }} de {{ $libros->total() }} libros
+            </p>
             <div class="flex gap-2">
-                <button class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] transition flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                </button>
-                <button class="w-9 h-9 rounded-full bg-[#3f7847] text-white border border-[#9bcf98] flex items-center justify-center font-story">1</button>
-                <button class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] transition flex items-center justify-center">2</button>
-                <button class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] transition flex items-center justify-center">3</button>
-                <button class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] transition flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </button>
+                {{ $libros->links() }}
             </div>
         </div>
+        @endif
     </div>
 
     <!-- Actividad Reciente y Categorías Populares -->

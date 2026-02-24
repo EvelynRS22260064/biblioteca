@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriasController; // ← CORREGIDO (con 'a')
-use App\Http\Controllers\LibroController;
+use App\Http\Controllers\LibroController; // Este hace algo diferente a LibrosController, por eso se mantiene
 
 Route::get('/', function () {
     return view('welcome');

@@ -9,21 +9,19 @@ class Libro extends Model
 {
     use HasFactory;
 
-    protected $table = 'libros'; // Asegura que use la tabla correcta
-    
+    protected $table = 'libros';
+
     protected $fillable = [
-        'titulo',
-        'autor',
+        'nombre',
         'isbn',
+        'autor',
+        'editorial',
+        'estatus',
         'categoria_id',
-        'estado',
-        'descripcion',
-        'anio_publicacion'
     ];
 
-    // Relación con categoría
     public function categoria()
     {
-        return $this->belongsTo(Categorias::class, 'categoria_id');
+        return $this->belongsTo(Categoria::class, 'categoria_id');
     }
 }
