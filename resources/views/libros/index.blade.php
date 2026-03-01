@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>Libros - Biblioteca del Bosque Encantado</title>
+    <title>🌿 Grimorio de Libros - Biblioteca del Bosque Encantado</title>
     
-    <!-- Tailwind CSS (en lugar de Bootstrap) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Font Awesome para iconos -->
@@ -54,7 +54,7 @@
             z-index: -2;
         }
 
-        /* ===== TARJETA ESTILO PERGAMINO ===== */
+        /* ===== TARJETA ESTILO PERGAMINO MEJORADA ===== */
         .form-card {
             background: rgba(250, 250, 240, 0.95);
             backdrop-filter: blur(4px);
@@ -87,7 +87,7 @@
             pointer-events: none;
         }
 
-        /* ===== TABLA ESTILO BOSQUE ===== */
+        /* ===== TABLA ESTILO BOSQUE MEJORADA ===== */
         .table-container {
             background: rgba(250, 250, 240, 0.95);
             border: 2px solid var(--verde-sutil);
@@ -130,7 +130,7 @@
             transition: background 0.3s ease;
         }
 
-        /* ===== BOTONES ===== */
+        /* ===== BOTONES MEJORADOS ===== */
         .btn-primary {
             background: #3f7847;
             border: 1px solid #9bcf98;
@@ -156,6 +156,44 @@
             color: white;
         }
 
+        .btn-edit {
+            color: #2e693b;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 30px 4px 30px 4px;
+            background: rgba(46, 105, 59, 0.1);
+            border: 1px solid transparent;
+        }
+        
+        .btn-edit:hover {
+            color: #1f4a2a;
+            background: rgba(46, 105, 59, 0.2);
+            border-color: #2e693b;
+            transform: translateY(-1px);
+        }
+        
+        .btn-delete {
+            color: #b85c5c;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 30px 4px 30px 4px;
+            background: rgba(184, 92, 92, 0.1);
+            border: 1px solid transparent;
+        }
+        
+        .btn-delete:hover {
+            color: #a04545;
+            background: rgba(184, 92, 92, 0.2);
+            border-color: #b85c5c;
+            transform: translateY(-1px);
+        }
+
         /* ===== BADGES ===== */
         .badge {
             padding: 0.25rem 1rem;
@@ -178,77 +216,186 @@
             50% { transform: translateY(-5px); }
         }
         
-        .fa-leaf, .fa-tree {
+        .fa-leaf, .fa-tree, .fa-book-open {
             animation: float 3s ease-in-out infinite;
         }
         
         .fa-tree {
             animation-delay: 1s;
         }
+        
+        .fa-book-open {
+            animation-delay: 2s;
+        }
     </style>
 </head>
 <body class="antialiased">
-    <div class="container mx-auto px-4 py-12 max-w-6xl relative">
+    <div class="container mx-auto px-4 py-12 max-w-7xl relative">
         <!-- Hojas decorativas flotantes -->
         <div class="fixed top-20 left-10 text-4xl opacity-10 pointer-events-none animate-pulse">🌿</div>
         <div class="fixed bottom-20 right-10 text-4xl opacity-10 pointer-events-none animate-pulse">🍂</div>
+        <div class="fixed top-40 right-20 text-4xl opacity-10 pointer-events-none animate-pulse">📖</div>
         
-        <!-- Header con estilo del bosque -->
-        <div class="mb-8 relative">
-            <div class="absolute -top-4 -left-4 w-32 h-32 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
-            <h1 class="font-story text-5xl md:text-6xl font-bold text-[#1f4a2a] mb-3 relative flex items-center gap-3">
-                <span class="text-6xl">📚</span> 
-                <span>Libros del Bosque</span>
+        <!-- Header con estilo del bosque MEJORADO -->
+        <div class="mb-12 relative">
+            <div class="absolute -top-4 -left-4 w-40 h-40 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-[#8bb682]/20 rounded-full blur-2xl"></div>
+            
+            <h1 class="font-story text-5xl md:text-6xl lg:text-7xl font-bold text-[#1f4a2a] mb-4 relative leading-tight">
+                <span class="inline-block mr-3 transform hover:rotate-12 transition-transform duration-300">📜</span> 
+                El Gran <span class="relative">
+                    Grimorio
+                    <span class="absolute -bottom-2 left-0 w-full h-2 bg-[#b7d6a5]/30 rounded-full blur-sm"></span>
+                </span>
             </h1>
-            <p class="text-[#2d5a36] text-lg max-w-2xl leading-relaxed pl-2">
-                Explora el catálogo de ejemplares disponibles en el bosque encantado
-            </p>
+            
+            <div class="relative max-w-3xl">
+                <div class="absolute -left-4 top-0 text-4xl opacity-20 text-[#3f7847]">✧</div>
+                <p class="text-[#2d5a36] text-base md:text-lg leading-relaxed pl-2 italic border-l-4 border-[#8bb682] bg-gradient-to-r from-[#e5f0db]/30 to-transparent p-4 rounded-r-2xl">
+                    <span class="font-story font-semibold text-[#1f4a2a]">Lista completa de ejemplares que habitan en nuestro claro encantado. 
+                    Cada libro es un árbol que guarda historias ancestrales esperando ser descubiertas por los lectores del bosque.</span>
+                </p>
+            </div>
+            
+            <div class="flex gap-3 mt-4 text-[#8bb682]">
+                <i class="fa-solid fa-tree text-sm"></i>
+                <i class="fa-solid fa-tree text-sm"></i>
+                <i class="fa-solid fa-tree text-sm"></i>
+                <span class="text-xs text-[#5b8c5a] mx-2">✦</span>
+                <i class="fa-solid fa-feather text-sm"></i>
+                <i class="fa-solid fa-feather text-sm"></i>
+                <i class="fa-solid fa-feather text-sm"></i>
+            </div>
         </div>
 
-        <!-- Botón Nuevo Libro -->
+        <!-- Botón Nuevo Libro MEJORADO -->
         <div class="mb-8 flex justify-end">
-            <a href="{{ route('libros.create') }}" class="btn-primary">
-                <i class="fa-solid fa-plus"></i>
-                Nuevo Libro
-                <i class="fa-solid fa-sparkles opacity-70"></i>
+            <a href="{{ route('libros.create') }}" 
+               class="group relative bg-[#3f7847] hover:bg-[#4c8f55] text-white px-8 py-4 rounded-full font-story flex items-center gap-3 border-2 border-[#9bcf98] shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
+                <span class="absolute -left-2 -top-2 text-lg opacity-50 group-hover:opacity-100 transition">📖</span>
+                <i class="fa-solid fa-plus bg-white/20 p-2 rounded-full"></i>
+                <span class="text-lg">Escribir nuevo grimorio</span>
+                <i class="fa-solid fa-feather opacity-70 group-hover:opacity-100 transition"></i>
             </a>
         </div>
 
-        <!-- Tabla de libros -->
-        <div class="table-container">
+        <!-- Tabla de libros MEJORADA -->
+        <div class="table-container border-2 border-[#8bb682] shadow-2xl relative">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3f7847] via-[#8bb682] to-[#3f7847]"></div>
+            
+            <div class="p-6 border-b border-[#99bF8c] bg-gradient-to-r from-[#f0f7e8] to-[#e5f0db]">
+                <h2 class="font-story text-2xl md:text-3xl font-bold text-[#1a4524] flex items-center gap-3">
+                    <i class="fa-solid fa-book-skull text-[#3f7847] text-3xl"></i> 
+                    <span>Los Pergaminos del Claro</span>
+                </h2>
+                <p class="text-[#34633e] text-sm md:text-base mt-2 flex items-center gap-2">
+                    <i class="fa-solid fa-feather text-[#8bb682]"></i>
+                    Todos los ejemplares mágicos que resguardamos en nuestra biblioteca
+                </p>
+            </div>
+
             <div class="overflow-x-auto">
                 <table class="admin-table">
                     <thead>
-                        <tr>
-                            <th><i class="fa-solid fa-heading mr-2 text-[#3f7847]"></i>Nombre</th>
-                            <th><i class="fa-solid fa-barcode mr-2 text-[#3f7847]"></i>ISBN</th>
-                            <th><i class="fa-solid fa-user-pen mr-2 text-[#3f7847]"></i>Autor</th>
-                            <th><i class="fa-solid fa-building mr-2 text-[#3f7847]"></i>Editorial</th>
-                            <th><i class="fa-solid fa-tags mr-2 text-[#3f7847]"></i>Categoría</th>
+                        <tr class="bg-[#d8ecd0]">
+                            <th class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-heading text-[#3f7847]"></i>
+                                    <span>Título del libro</span>
+                                </div>
+                            </th>
+                            <th class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-user-pen text-[#3f7847]"></i>
+                                    <span>Autor del pergamino</span>
+                                </div>
+                            </th>
+                            <th class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-barcode text-[#3f7847]"></i>
+                                    <span>ISBN (Número mágico)</span>
+                                </div>
+                            </th>
+                            <th class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-building text-[#3f7847]"></i>
+                                    <span>Editorial</span>
+                                </div>
+                            </th>
+                            <th class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-tags text-[#3f7847]"></i>
+                                    <span>Categoría</span>
+                                </div>
+                            </th>
+                            <th class="px-6 py-4">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-wand-sparkles text-[#3f7847]"></i>
+                                    <span>Acciones</span>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($libros as $libro)
-                            <tr>
-                                <td class="font-medium text-[#1f4a2a]">{{ $libro->nombre }}</td>
-                                <td class="font-mono text-sm">{{ $libro->isbn }}</td>
-                                <td>{{ $libro->autor }}</td>
-                                <td>{{ $libro->editorial }}</td>
-                                <td>
-                                    <span class="badge badge-categoria">
-                                        <i class="fa-solid fa-tag mr-1 text-[#5b9c5a]"></i>
+                            <tr class="hover:bg-[#e5f0db] transition group">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fa-solid fa-book-open text-[#8bb682] group-hover:text-[#3f7847] transition"></i>
+                                        <span class="font-medium text-[#1f4a2a]">{{ $libro->nombre }}</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-1">
+                                        <i class="fa-solid fa-feather text-[#8bb682] text-xs"></i>
+                                        {{ $libro->autor }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="font-mono text-xs bg-white/50 px-2 py-1 rounded-full border border-[#c3dfb5]">
+                                        {{ $libro->isbn }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">{{ $libro->editorial }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="badge badge-categoria flex items-center gap-1 w-fit">
+                                        <i class="fa-solid fa-tag text-[#5b9c5a] text-xs"></i>
                                         {{ $libro->categoria->nombre ?? 'Sin categoría' }}
                                     </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <a href="{{ route('libros.edit', $libro->id) }}" 
+                                           class="btn-edit group/edit">
+                                            <i class="fa-solid fa-pen-to-square group-hover/edit:rotate-12 transition"></i>
+                                            <span>Editar</span>
+                                        </a>
+                                        
+                                        <form action="{{ route('libros.destroy', $libro->id) }}" 
+                                              method="POST" 
+                                              class="inline"
+                                              onsubmit="return confirm('¿Estás seguro de eliminar el libro {{ $libro->nombre }}?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="btn-delete group/delete">
+                                                <i class="fa-solid fa-trash group-hover/delete:scale-110 transition"></i>
+                                                <span>Eliminar</span>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-12">
-                                    <div class="flex flex-col items-center gap-3 text-[#8bb682]">
-                                        <i class="fa-solid fa-leaf text-4xl"></i>
-                                        <p class="font-story text-lg">No hay libros en el catálogo</p>
-                                        <a href="{{ route('libros.create') }}" class="text-[#3f7847] hover:text-[#1f4a2a] underline decoration-dotted">
-                                            Agrega el primer libro
+                                <td colspan="6" class="text-center py-16">
+                                    <div class="flex flex-col items-center gap-4 text-[#8bb682]">
+                                        <i class="fa-solid fa-tree text-5xl opacity-30"></i>
+                                        <p class="font-story text-2xl">El bosque está en silencio...</p>
+                                        <p class="text-sm">No hay libros en el catálogo aún</p>
+                                        <a href="{{ route('libros.create') }}" class="mt-2 text-[#3f7847] hover:text-[#1f4a2a] underline decoration-dotted flex items-center gap-2">
+                                            <i class="fa-solid fa-seedling"></i>
+                                            Escribir el primer grimorio
                                         </a>
                                     </div>
                                 </td>
@@ -258,29 +405,82 @@
                 </table>
             </div>
             
-            <!-- Contador de libros (opcional) -->
-            @if(count($libros) > 0)
-                <div class="p-4 border-t border-[#c3dfb5] bg-[#f0f7e8]">
-                    <p class="text-sm text-[#5b8c5a] flex items-center gap-2">
-                        <i class="fa-solid fa-leaf"></i>
-                        Mostrando {{ count($libros) }} {{ count($libros) == 1 ? 'libro' : 'libros' }} en el catálogo
-                        <i class="fa-solid fa-leaf"></i>
-                    </p>
+            <!-- Contador de libros MEJORADO -->
+@if(isset($libros) && count($libros) > 0)
+    <div class="p-4 border-t border-[#c3dfb5] bg-gradient-to-r from-[#f0f7e8] to-[#e5f0db]">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-[#5b8c5a] flex items-center gap-3 bg-white/50 px-4 py-2 rounded-full border border-[#8bb682]">
+                <i class="fa-solid fa-feather text-[#8bb682]"></i>
+                Mostrando {{ $libros->firstItem() ?? 1 }} - {{ $libros->lastItem() ?? count($libros) }} de {{ $libros->total() ?? count($libros) }} grimorios
+                <i class="fa-solid fa-feather text-[#8bb682]"></i>
+            </p>
+            
+            <!-- PAGINACIÓN MEJORADA (IGUAL QUE EN CATEGORÍAS) -->
+            @if(isset($libros) && $libros->hasPages())
+                <div class="flex gap-2">
+                    {{-- Botón Anterior --}}
+                    @if($libros->onFirstPage())
+                        <span class="w-10 h-10 rounded-full border-2 border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed bg-white/50">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </span>
+                    @else
+                        <a href="{{ $libros->previousPageUrl() }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#3f7847] hover:text-white hover:border-[#3f7847] transition-all flex items-center justify-center bg-white shadow-md hover:shadow-xl">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </a>
+                    @endif
+
+                    {{-- Números de página --}}
+                    @foreach(range(1, $libros->lastPage()) as $page)
+                        @if($page == $libros->currentPage())
+                            <span class="w-10 h-10 rounded-full bg-[#3f7847] text-white border-2 border-[#9bcf98] flex items-center justify-center font-story font-bold shadow-lg transform scale-110">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $libros->url($page) }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition-all flex items-center justify-center font-story bg-white hover:shadow-md">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    {{-- Botón Siguiente --}}
+                    @if($libros->hasMorePages())
+                        <a href="{{ $libros->nextPageUrl() }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#3f7847] hover:text-white hover:border-[#3f7847] transition-all flex items-center justify-center bg-white shadow-md hover:shadow-xl">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    @else
+                        <span class="w-10 h-10 rounded-full border-2 border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed bg-white/50">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </span>
+                    @endif
                 </div>
             @endif
         </div>
+    </div>
+@endif
 
-        <!-- Mensaje inspirador -->
-        <div class="mt-8 text-center">
-            <p class="text-sm text-[#8bb682] italic font-story">
-                <i class="fa-solid fa-quote-left mr-2 opacity-50"></i>
-                Los libros son árboles que guardan historias
-                <i class="fa-solid fa-quote-right ml-2 opacity-50"></i>
+        <!-- Mensaje inspirador MEJORADO -->
+        <div class="mt-12 text-center relative">
+            <div class="absolute left-1/2 -translate-x-1/2 -top-5 w-24 h-24 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
+            
+            <div class="flex justify-center gap-4 text-[#8bb682] text-2xl mb-4">
+                <i class="fa-solid fa-tree hover:text-[#3f7847] transition transform hover:scale-110"></i>
+                <i class="fa-solid fa-book-open hover:text-[#3f7847] transition transform hover:scale-110"></i>
+                <i class="fa-solid fa-feather hover:text-[#3f7847] transition transform hover:scale-110"></i>
+                <i class="fa-solid fa-tree hover:text-[#3f7847] transition transform hover:scale-110"></i>
+            </div>
+            
+            <p class="text-base text-[#8bb682] italic font-story max-w-2xl mx-auto">
+                <i class="fa-solid fa-quote-left mr-2 opacity-50 text-[#5b8c5a]"></i>
+                Los libros son árboles que guardan historias, y cada página es una hoja que susurra secretos al viento
+                <i class="fa-solid fa-quote-right ml-2 opacity-50 text-[#5b8c5a]"></i>
             </p>
-            <div class="flex justify-center gap-3 mt-3 text-[#b7d6a5]">
-                <i class="fa-solid fa-tree"></i>
-                <i class="fa-solid fa-book-open"></i>
-                <i class="fa-solid fa-tree"></i>
+            
+            <div class="flex justify-center gap-1 mt-4 text-[#b7d6a5] text-xs">
+                <i class="fa-solid fa-leaf"></i>
+                <i class="fa-solid fa-leaf"></i>
+                <i class="fa-solid fa-leaf"></i>
+                <i class="fa-solid fa-leaf"></i>
+                <i class="fa-solid fa-leaf"></i>
             </div>
         </div>
     </div>
