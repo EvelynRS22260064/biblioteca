@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CategoriasController; // ← CORREGIDO (con 'a')
-use App\Http\Controllers\LibroController; // Este hace algo diferente a LibrosController, por eso se mantiene
+use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\LibroController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     
-    // Rutas de categorías (CORREGIDO)
+    // Rutas de categorías
     Route::resource('categorias', CategoriasController::class);
     
     // Rutas de libros

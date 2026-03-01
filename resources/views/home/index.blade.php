@@ -140,7 +140,7 @@
                 <tbody class="divide-y divide-[#c3dfb5]">
                     @forelse($libros ?? [] as $libro)
                     <tr class="hover:bg-[#e5f0db] transition">
-                        <td class="px-6 py-4 font-medium text-[#1f4a2a]">{{ $libro->titulo ?? 'Sin título' }}</td>
+                        <td class="px-6 py-4 font-medium text-[#1f4a2a]">{{ $libro->nombre ?? 'Sin título' }}</td>
                         <td class="px-6 py-4">{{ $libro->autor ?? 'Desconocido' }}</td>
                         <td class="px-6 py-4 font-mono text-xs">{{ $libro->isbn ?? 'N/A' }}</td>
                         <td class="px-6 py-4">
