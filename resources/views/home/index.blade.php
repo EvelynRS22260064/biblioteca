@@ -122,7 +122,7 @@
             <a href="{{ route('libros.create') }}" class="bg-[#3f7847] hover:bg-[#4c8f55] text-white px-6 py-3 rounded-full font-story flex items-center gap-2 border border-[#9bcf98] shadow-lg transition">
                 <i class="fa-solid fa-plus"></i> Agregar libro
             </a>
-        </div>
+            </div>
         
         <!-- Tabla responsive -->
         <div class="overflow-x-auto">
