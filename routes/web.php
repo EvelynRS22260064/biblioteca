@@ -19,10 +19,20 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware('auth')->group(function (){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+});
+
+Route::middleware(['auth', 'user_type:admin'])->group(function () {
     
     // Rutas de categorías
     Route::resource('categorias', CategoriasController::class);
     
     // Rutas de libros
     Route::resource('libros', LibroController::class);
+
+}); 
+
+Route::middleware(['user', 'user_type:user'])->group(function () {
+
 });
+
