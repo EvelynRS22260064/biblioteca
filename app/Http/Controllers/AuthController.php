@@ -33,9 +33,11 @@ class AuthController extends Controller
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
+            'username' => $validatedData['email'], // Asignar el email como username
+            'tipo_usuario' => 'user', // Asignar un tipo de usuario por defecto   
         ]);
 
-        // Iniciar sesión automáticamente
+        // Redirigir o iniciar sesión automáticamente
         Auth::login($user);
         return redirect()->route('home');
     }

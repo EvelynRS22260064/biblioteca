@@ -10,8 +10,14 @@ class HomeController extends Controller
     public function index()
     
     {
-        $libros = Libro::paginate(4);
+        $user = auth()->user();
 
-        return view('home.index', compact('libros'));
+        if ($user->tipo_usuario === 'admin') {
+            $libros = Libro::paginate(4);
+
+            return view('home.index', compact('libros'));
+        } else {
+            return view('home.inde_user');
+        }
     }
 }
