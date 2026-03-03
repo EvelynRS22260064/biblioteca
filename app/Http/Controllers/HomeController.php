@@ -17,7 +17,7 @@ class HomeController extends Controller
 
             return view('home.index', compact('libros'));
         } else {
-            return view('home.inde_user');
+            return view('home.index_user');
         }
     }
 }
