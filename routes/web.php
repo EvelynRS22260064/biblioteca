@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\LibroController;
+use App\Http\Controllers\UsuariosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,9 +31,12 @@ Route::middleware(['auth', 'user_type:admin'])->group(function () {
     // Rutas de libros
     Route::resource('libros', LibroController::class);
 
-}); 
+    // Rutas de usuarios
+    Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
 
-Route::middleware(['user', 'user_type:user'])->group(function () {
+});
+
+Route::middleware(['auth', 'user_type:user'])->group(function () {
 
 });
 

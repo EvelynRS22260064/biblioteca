@@ -292,15 +292,15 @@
                     <span>Inicio</span>
                 </a>
                 
-                <a href="#" class="sidebar-link">
+                <a href="{{ route('usuarios.index') }}" class="sidebar-link {{ request()->routeIs('usuarios*') ? 'active' : '' }}">
                     <i class="fa-solid fa-users"></i>
                     <span>Usuarios</span>
                 </a>
                 
                 <a href="{{ route('libros.index') }}" class="sidebar-link {{ request()->routeIs('libros*') ? 'active' : '' }}">
-    <i class="fa-solid fa-book"></i>
-    <span>Libros</span>
-</a>
+                    <i class="fa-solid fa-book"></i>
+                    <span>Libros</span>
+                </a>
 
                 <a href="{{ route('categorias.index')}}" class="sidebar-link">
                     <i class="fa-tags fa-users"></i>
