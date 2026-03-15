@@ -297,7 +297,7 @@
                     <span>Usuarios</span>
                 </a>
                 
-                <a href="{{ route('libros.index') }}" class="sidebar-link {{ request()->routeIs('libros*') ? 'active' : '' }}">
+                <a href="#" class="sidebar-link {{ request()->routeIs('libros*') ? 'active' : '' }}">
                     <i class="fa-solid fa-book"></i>
                     <span>Libros</span>
                 </a>
@@ -307,7 +307,7 @@
                     <span>Categorias</span>
                 </a>
                 
-                <a href="#" class="sidebar-link">
+                <a href="{{ route('prestamos.index') }}" class="sidebar-link">
                     <i class="fa-solid fa-exchange-alt"></i>
                     <span>Préstamos</span>
                 </a>

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\PrestamosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +21,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Rutas para préstamos (accesibles por ambos tipos de usuarios)
+    Route::get('/prestamos', [PrestamosController::class, 'index'])->name('prestamos.index');
 });
 
 // Rutas solo para administrador
