@@ -4,14 +4,15 @@
 @section('page-description', 'Organiza los senderos del conocimiento en el bosque encantado')
 
 @section('content')
+{{-- PÁGINA: Admin - Listado de categorías --}}
 <div class="p-4 sm:p-8">
     <div class="container mx-auto px-4 py-8">
-        <!-- Header con estilo del bosque (MEJORADO) -->
+        {{-- SECCIÓN: Encabezado de página (MEJORADO) --}}
         <div class="mb-8 relative">
             <div class="absolute -top-4 -left-4 w-32 h-32 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-[#8bb682]/20 rounded-full blur-2xl"></div>
             
-            <!-- Título principal con más magia -->
+            {{-- Título principal --}}
             <h1 class="font-story text-4xl md:text-5xl lg:text-6xl font-bold text-[#1f4a2a] mb-4 relative leading-tight">
                 <span class="inline-block mr-3 transform hover:rotate-12 transition-transform duration-300">🌳</span> 
                 El Gran Árbol de las <br class="hidden sm:block">
@@ -21,7 +22,7 @@
                 </span>
             </h1>
             
-            <!-- Descripción mágica mejorada -->
+            {{-- Descripción mágica --}}
             <div class="relative max-w-3xl">
                 <div class="absolute -left-4 top-0 text-4xl opacity-20 text-[#3f7847]">"</div>
                 <p class="text-[#2d5a36] text-base md:text-lg leading-relaxed pl-2 italic border-l-4 border-[#8bb682] bg-gradient-to-r from-[#e5f0db]/30 to-transparent p-4 rounded-r-2xl">
@@ -33,7 +34,7 @@
                 </p>
             </div>
             
-            <!-- Pequeños detalles decorativos -->
+            {{-- Decoración de íconos --}}
             <div class="flex gap-2 mt-4 text-[#8bb682]">
                 <i class="fa-solid fa-tree text-xs"></i>
                 <i class="fa-solid fa-tree text-xs"></i>
@@ -45,7 +46,7 @@
             </div>
         </div>
 
-        <!-- Mensajes de éxito/error (con diseño verde) -->
+        {{-- SECCIÓN: Mensajes de sesión --}}
         @if(session('success'))
             <div class="mb-6 p-4 bg-[#d8ecd0] border-2 border-[#5b9c5a] text-[#1f4a2a] rounded-xl flex items-center gap-3 shadow-lg transform hover:scale-[1.02] transition">
                 <div class="w-10 h-10 bg-[#3f7847] rounded-full flex items-center justify-center text-white">
@@ -65,7 +66,7 @@
             </div>
         @endif
 
-        <!-- Botón de agregar con más estilo -->
+        {{-- SECCIÓN: Botón de acción --}}
         <div class="mb-8 flex justify-end">
             <a href="{{ route('categorias.create') }}" 
                class="group relative bg-[#3f7847] hover:bg-[#4c8f55] text-white px-8 py-4 rounded-full font-story flex items-center gap-3 border-2 border-[#9bcf98] shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
@@ -76,10 +77,11 @@
             </a>
         </div>
 
-        <!-- Tarjeta con la tabla (estilo form-card mejorado) -->
+        {{-- SECCIÓN: Tabla de categorías --}}
         <div class="form-card overflow-hidden border-2 border-[#8bb682] shadow-2xl relative">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3f7847] via-[#8bb682] to-[#3f7847]"></div>
             
+            {{-- Encabezado de tabla --}}
             <div class="p-6 border-b border-[#99bF8c] bg-gradient-to-r from-[#f0f7e8] to-[#e5f0db]">
                 <h2 class="font-story text-2xl md:text-3xl font-bold text-[#1a4524] flex items-center gap-3">
                     <i class="fa-solid fa-tree text-[#3f7847] text-3xl"></i> 
@@ -91,6 +93,7 @@
                 </p>
             </div>
 
+            {{-- Tabla de datos --}}
             <div class="overflow-x-auto">
                 <table class="min-w-full table-auto admin-table">
                     <thead>
@@ -130,8 +133,9 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4">
+                                {{-- ACCIONES: Editar y Eliminar --}}
                                 <div class="flex gap-4 text-sm">
-                                    <!-- Botón Editar con más estilo -->
+                                    {{-- Botón Editar --}}
                                     <a href="{{ route('categorias.edit', $categoria->id) }}" 
                                        class="group/edit relative text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1 px-3 py-1 rounded-full hover:bg-white/50">
                                         <i class="fa-solid fa-pen-to-square group-hover/edit:rotate-12 transition"></i>
@@ -141,7 +145,7 @@
                                         </span>
                                     </a>
                                     
-                                    <!-- Botón Eliminar con más estilo -->
+                                    {{-- Botón Eliminar --}}
                                     <form action="{{ route('categorias.destroy', $categoria->id) }}" 
                                           method="POST" 
                                           class="inline"
@@ -161,6 +165,7 @@
                             </td>
                         </tr>
                         @empty
+                        {{-- Mensaje cuando no hay datos --}}
                         <tr>
                             <td colspan="3" class="px-6 py-12 text-center text-[#5b8c5a]">
                                 <div class="flex flex-col items-center gap-3">
@@ -178,7 +183,7 @@
                 </table>
             </div>
 
-            <!-- PAGINACIÓN CON MÁS ESTILO -->
+            {{-- SECCIÓN: Paginación --}}
             @if(isset($categorias) && $categorias->hasPages())
             <div class="p-6 border-t border-[#99bF8c] bg-gradient-to-b from-[#fafff2] to-[#e5f0db]">
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -229,7 +234,7 @@
             @endif
         </div>
 
-        <!-- Decoración del bosque mejorada -->
+        {{-- SECCIÓN: Decoración del bosque --}}
         <div class="mt-10 text-center relative">
             <div class="absolute left-1/2 -translate-x-1/2 -top-5 w-20 h-20 bg-[#b7d6a5]/20 rounded-full blur-2xl"></div>
             <div class="flex justify-center gap-4 text-[#8bb682] text-xl">

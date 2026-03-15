@@ -8,13 +8,13 @@
     
     <title>🌿 Grimorio de Libros - Biblioteca del Bosque Encantado</title>
     
-    <!-- Tailwind CSS -->
+    {{-- CSS: Tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome para iconos -->
+    {{-- ICONOS: Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Fuentes personalizadas -->
+    {{-- FUENTES: Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
@@ -231,12 +231,12 @@
 </head>
 <body class="antialiased">
     <div class="container mx-auto px-4 py-12 max-w-7xl relative">
-        <!-- Hojas decorativas flotantes -->
+        {{-- DECORACIÓN: Hojas flotantes --}}
         <div class="fixed top-20 left-10 text-4xl opacity-10 pointer-events-none animate-pulse">🌿</div>
         <div class="fixed bottom-20 right-10 text-4xl opacity-10 pointer-events-none animate-pulse">🍂</div>
         <div class="fixed top-40 right-20 text-4xl opacity-10 pointer-events-none animate-pulse">📖</div>
         
-        <!-- Header con estilo del bosque MEJORADO -->
+        {{-- SECCIÓN: Encabezado principal --}}
         <div class="mb-12 relative">
             <div class="absolute -top-4 -left-4 w-40 h-40 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-[#8bb682]/20 rounded-full blur-2xl"></div>
@@ -268,7 +268,7 @@
             </div>
         </div>
 
-        <!-- Botón Nuevo Libro MEJORADO -->
+        {{-- SECCIÓN: Botón de acción --}}
         <div class="mb-8 flex justify-end">
             <a href="{{ route('libros.create') }}" 
                class="group relative bg-[#3f7847] hover:bg-[#4c8f55] text-white px-8 py-4 rounded-full font-story flex items-center gap-3 border-2 border-[#9bcf98] shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
@@ -279,10 +279,11 @@
             </a>
         </div>
 
-        <!-- Tabla de libros MEJORADA -->
+        {{-- SECCIÓN: Tabla de libros --}}
         <div class="table-container border-2 border-[#8bb682] shadow-2xl relative">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3f7847] via-[#8bb682] to-[#3f7847]"></div>
             
+            {{-- Encabezado de tabla --}}
             <div class="p-6 border-b border-[#99bF8c] bg-gradient-to-r from-[#f0f7e8] to-[#e5f0db]">
                 <h2 class="font-story text-2xl md:text-3xl font-bold text-[#1a4524] flex items-center gap-3">
                     <i class="fa-solid fa-book-skull text-[#3f7847] text-3xl"></i> 
@@ -294,6 +295,7 @@
                 </p>
             </div>
 
+            {{-- Tabla de datos --}}
             <div class="overflow-x-auto">
                 <table class="admin-table">
                     <thead>
@@ -364,6 +366,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">
+                                    {{-- ACCIONES: Editar y Eliminar --}}
                                     <div class="flex gap-2">
                                         <a href="{{ route('libros.edit', $libro->id) }}" 
                                            class="btn-edit group/edit">
@@ -387,6 +390,7 @@
                                 </td>
                             </tr>
                         @empty
+                            {{-- Mensaje cuando no hay datos --}}
                             <tr>
                                 <td colspan="6" class="text-center py-16">
                                     <div class="flex flex-col items-center gap-4 text-[#8bb682]">
@@ -405,60 +409,61 @@
                 </table>
             </div>
             
-            <!-- Contador de libros MEJORADO -->
-@if(isset($libros) && count($libros) > 0)
-    <div class="p-4 border-t border-[#c3dfb5] bg-gradient-to-r from-[#f0f7e8] to-[#e5f0db]">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p class="text-sm text-[#5b8c5a] flex items-center gap-3 bg-white/50 px-4 py-2 rounded-full border border-[#8bb682]">
-                <i class="fa-solid fa-feather text-[#8bb682]"></i>
-                Mostrando {{ $libros->firstItem() ?? 1 }} - {{ $libros->lastItem() ?? count($libros) }} de {{ $libros->total() ?? count($libros) }} grimorios
-                <i class="fa-solid fa-feather text-[#8bb682]"></i>
-            </p>
-            
-            <!-- PAGINACIÓN MEJORADA (IGUAL QUE EN CATEGORÍAS) -->
-            @if(isset($libros) && $libros->hasPages())
-                <div class="flex gap-2">
-                    {{-- Botón Anterior --}}
-                    @if($libros->onFirstPage())
-                        <span class="w-10 h-10 rounded-full border-2 border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed bg-white/50">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </span>
-                    @else
-                        <a href="{{ $libros->previousPageUrl() }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#3f7847] hover:text-white hover:border-[#3f7847] transition-all flex items-center justify-center bg-white shadow-md hover:shadow-xl">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </a>
-                    @endif
+            {{-- SECCIÓN: Contador y paginación --}}
+            @if(isset($libros) && count($libros) > 0)
+                <div class="p-4 border-t border-[#c3dfb5] bg-gradient-to-r from-[#f0f7e8] to-[#e5f0db]">
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <p class="text-sm text-[#5b8c5a] flex items-center gap-3 bg-white/50 px-4 py-2 rounded-full border border-[#8bb682]">
+                            <i class="fa-solid fa-feather text-[#8bb682]"></i>
+                            Mostrando {{ $libros->firstItem() ?? 1 }} - {{ $libros->lastItem() ?? count($libros) }} de {{ $libros->total() ?? count($libros) }} grimorios
+                            <i class="fa-solid fa-feather text-[#8bb682]"></i>
+                        </p>
+                        
+                        {{-- PAGINACIÓN --}}
+                        @if(isset($libros) && $libros->hasPages())
+                            <div class="flex gap-2">
+                                {{-- Botón Anterior --}}
+                                @if($libros->onFirstPage())
+                                    <span class="w-10 h-10 rounded-full border-2 border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed bg-white/50">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </span>
+                                @else
+                                    <a href="{{ $libros->previousPageUrl() }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#3f7847] hover:text-white hover:border-[#3f7847] transition-all flex items-center justify-center bg-white shadow-md hover:shadow-xl">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </a>
+                                @endif
 
-                    {{-- Números de página --}}
-                    @foreach(range(1, $libros->lastPage()) as $page)
-                        @if($page == $libros->currentPage())
-                            <span class="w-10 h-10 rounded-full bg-[#3f7847] text-white border-2 border-[#9bcf98] flex items-center justify-center font-story font-bold shadow-lg transform scale-110">
-                                {{ $page }}
-                            </span>
-                        @else
-                            <a href="{{ $libros->url($page) }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition-all flex items-center justify-center font-story bg-white hover:shadow-md">
-                                {{ $page }}
-                            </a>
+                                {{-- Números de página --}}
+                                @foreach(range(1, $libros->lastPage()) as $page)
+                                    @if($page == $libros->currentPage())
+                                        <span class="w-10 h-10 rounded-full bg-[#3f7847] text-white border-2 border-[#9bcf98] flex items-center justify-center font-story font-bold shadow-lg transform scale-110">
+                                            {{ $page }}
+                                        </span>
+                                    @else
+                                        <a href="{{ $libros->url($page) }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition-all flex items-center justify-center font-story bg-white hover:shadow-md">
+                                            {{ $page }}
+                                        </a>
+                                    @endif
+                                @endforeach
+
+                                {{-- Botón Siguiente --}}
+                                @if($libros->hasMorePages())
+                                    <a href="{{ $libros->nextPageUrl() }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#3f7847] hover:text-white hover:border-[#3f7847] transition-all flex items-center justify-center bg-white shadow-md hover:shadow-xl">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </a>
+                                @else
+                                    <span class="w-10 h-10 rounded-full border-2 border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed bg-white/50">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </span>
+                                @endif
+                            </div>
                         @endif
-                    @endforeach
-
-                    {{-- Botón Siguiente --}}
-                    @if($libros->hasMorePages())
-                        <a href="{{ $libros->nextPageUrl() }}" class="w-10 h-10 rounded-full border-2 border-[#8bb682] text-[#1f4a2a] hover:bg-[#3f7847] hover:text-white hover:border-[#3f7847] transition-all flex items-center justify-center bg-white shadow-md hover:shadow-xl">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
-                    @else
-                        <span class="w-10 h-10 rounded-full border-2 border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed bg-white/50">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </span>
-                    @endif
+                    </div>
                 </div>
             @endif
         </div>
-    </div>
-@endif
 
-        <!-- Mensaje inspirador MEJORADO -->
+        {{-- SECCIÓN: Mensaje inspirador --}}
         <div class="mt-12 text-center relative">
             <div class="absolute left-1/2 -translate-x-1/2 -top-5 w-24 h-24 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
             

@@ -1,17 +1,19 @@
 @extends('layout.auth')
 
 @section('content')
+{{-- PÁGINA: Login/Registro (Vista unificada) --}}
 <div class="min-h-screen bg-[#f4f7f0] py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-    <!-- Fondo de bosque encantado -->
+    {{-- SECCIÓN: Fondo decorativo --}}
     <div class="absolute inset-0 z-0">
         <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-             alt="Bosque encantado con niebla" 
-             class="w-full h-full object-cover object-center opacity-20">
+            alt="Bosque encantado con niebla"
+            class="w-full h-full object-cover object-center opacity-20">
         <div class="absolute inset-0 bg-gradient-to-b from-[#1e4028]/30 via-[#2c583a]/20 to-[#367a49]/30"></div>
     </div>
 
+    {{-- SECCIÓN: Contenido principal --}}
     <div class="relative z-10 max-w-7xl mx-auto">
-        <!-- Header del bosque -->
+        {{-- SECCIÓN: Encabezado --}}
         <div class="text-center mb-12">
             <div class="inline-block bg-[#2a6637]/80 backdrop-blur-sm px-6 py-2 rounded-full border border-[#b1dba9] mb-4 font-story">
                 <span class="text-[#f6ffe7]">🍂  BIBLIOTECA DEL BOSQUE ENCANTADO  🍂</span>
@@ -22,9 +24,10 @@
             </p>
         </div>
 
+        {{-- SECCIÓN: Contenedor de formularios --}}
         <div class="flex flex-col lg:flex-row gap-8 items-stretch justify-center">
             
-            <!-- FORMULARIO DE LOGIN -->
+            {{-- SECCIÓN: Formulario de inicio de sesión --}}
             <div class="flex-1 max-w-md mx-auto lg:mx-0 w-full">
                 <div class="form-card p-8">
                     <h2 class="font-story text-3xl font-bold text-[#1a4524] mb-2 flex items-center gap-2 border-b border-[#99bF8c] pb-3">
@@ -32,8 +35,10 @@
                     </h2>
                     <p class="text-[#34633e] mb-6 text-sm">Accede con tus credenciales mágicas</p>
 
+                    {{-- FORMULARIO: Login --}}
                     <form id="loginForm" action="{{ route('login.post') }}" method="POST">
                         @csrf
+                        {{-- Campo: Email --}}
                         <div class="mb-5">
                             <label class="form-label">Correo electrónico</label>
                             <div class="relative">
@@ -43,6 +48,7 @@
 
                         </div>
 
+                        {{-- Campo: Contraseña con enlace de recuperación --}}
                         <div class="mb-4">
                             <div class="flex justify-between items-center mb-1">
                                 <label class="form-label">Contraseña</label>
@@ -54,22 +60,26 @@
                             </div>
                         </div>
 
+                        {{-- Checkbox: Recordar sesión --}}
                         <div class="flex items-center gap-2 mb-6">
                             <input type="checkbox" id="remember" class="rounded border-[#8bb682] text-[#3f7847] focus:ring-[#3f7847]">
                             <label for="remember" class="text-sm text-[#1f542b]">Recordar mi esencia</label>
                         </div>
 
+                        {{-- Botón: Enviar login --}}
                         <button type="submit" class="btn-primary">
                             <i class="fa-solid fa-sign-in-alt mr-2"></i> Entrar al Bosque
                         </button>
                     </form>
 
+                    {{-- Divisor decorativo --}}
                     <div class="relative flex py-5 items-center">
                         <div class="flex-grow border-t border-[#98b68d]"></div>
                         <span class="flex-shrink mx-4 text-[#286132] text-xs font-bold uppercase font-story">hojas del destino</span>
                         <div class="flex-grow border-t border-[#98b68d]"></div>
                     </div>
 
+                    {{-- SECCIÓN: Botones de inicio con redes sociales --}}
                     <div class="flex gap-4">
                         <button class="btn-social flex-1 border-[#8bb682] text-[#5b8c5a] hover:bg-[#e5f0db]">
                             <i class="fa-brands fa-google mr-2"></i> Google
@@ -79,10 +89,12 @@
                         </button>
                     </div>
 
+                    {{-- Enlace a registro --}}
                     <p class="mt-6 text-center text-sm text-[#34633e]">
                         ¿No tienes un grimorio? <a href="#" class="text-[#256f35] font-bold font-story hover:underline">Crea tu cuenta aquí</a>
                     </p>
 
+                    {{-- Nota informativa --}}
                     <div class="mt-6 bg-[#e5f0db] p-5 rounded-xl border-2 border-[#7fa07b]">
                         <h3 class="text-[#1a4524] font-bold flex items-center gap-2 text-sm mb-2">
                             <i class="fa-solid fa-leaf text-[#3f7847]"></i> ¿Primera vez en el claro?
@@ -94,7 +106,7 @@
                 </div>
             </div>
 
-            <!-- FORMULARIO DE REGISTRO -->
+            {{-- SECCIÓN: Formulario de registro --}}
             <div class="flex-1 max-w-md mx-auto lg:mx-0 w-full">
                 <div class="form-card p-8">
                     <h2 class="font-story text-3xl font-bold text-[#1a4524] mb-2 flex items-center gap-2 border-b border-[#99bF8c] pb-3">
@@ -102,23 +114,28 @@
                     </h2>
                     <p class="text-[#34633e] mb-6 text-sm">Regístrate para llevar historias a tu hogar</p>
 
+                    {{-- FORMULARIO: Registro --}}
                     <form id="registerForm" action="{{ route('register') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                         @csrf
+                        {{-- Mostrar errores de validación --}}
+                        @if($errors->any())
+                            <div class="md:col-span-2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-4">
+                                @foreach($errors->all() as $error)
+                                    <p class="text-sm">{{ $error }}</p>
+                                @endforeach
+                            </div>
+                        @endif
+                        
+                        {{-- Campo: Nombre --}}
                         <div class="input-group mb-4">
                             <label class="form-label">Nombre</label>
                             <div class="relative">
                                 <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-[#5b8c5a]"></i>
                                 <input type="text" name="name" class="form-input pl-12" placeholder="Ej. Elara" required>
-                            @if($errors->any())
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-4">
-        @foreach($errors->all() as $error)
-            <p class="text-sm">{{ $error }}</p>
-        @endforeach
-    </div>
-@endif
                             </div>
                         </div>
                         
+                        {{-- Campo: Apellido --}}
                         <div class="input-group mb-4">
                             <label class="form-label">Apellido</label>
                             <div class="relative">
@@ -127,6 +144,7 @@
                             </div>
                         </div>
                         
+                        {{-- Campo: Email (ocupa 2 columnas) --}}
                         <div class="md:col-span-2 mb-4">
                             <label class="form-label">Correo electrónico</label>
                             <div class="relative">
@@ -136,6 +154,7 @@
                             <p class="text-[10px] text-[#5b8c5a] mt-1">Los duendes usarán este email para contactarte</p>
                         </div>
                         
+                        {{-- Campo: Contraseña --}}
                         <div class="mb-4">
                             <label class="form-label">Contraseña</label>
                             <div class="relative">
@@ -144,6 +163,7 @@
                             </div>
                         </div>
                         
+                        {{-- Campo: Confirmar contraseña --}}
                         <div class="mb-4">
                             <label class="form-label">Repetir Contraseña</label>
                             <div class="relative">
@@ -152,6 +172,7 @@
                             </div>
                         </div>
                         
+                        {{-- Checkbox: Aceptar términos --}}
                         <div class="md:col-span-2 mb-6">
                             <label class="flex items-start gap-2 text-xs text-[#1f542b]">
                                 <input type="checkbox" class="mt-0.5 rounded border-[#8bb682] accent-[#3f7847]">
@@ -159,15 +180,18 @@
                             </label>
                         </div>
 
+                        {{-- Botón: Enviar registro --}}
                         <button type="submit" class="btn-primary md:col-span-2">
                             <i class="fa-solid fa-user-plus mr-2"></i> Crear Grimorio (Registrarse)
                         </button>
                     </form>
 
+                    {{-- Enlace a login --}}
                     <p class="mt-6 text-center text-sm text-[#34633e]">
                         ¿Ya tienes un grimorio? <a href="#" class="text-[#256f35] font-bold font-story hover:underline">Inicia sesión aquí</a>
                     </p>
 
+                    {{-- Beneficios del registro --}}
                     <div class="mt-6 bg-[#e5f0db] p-5 rounded-xl border-2 border-[#7fa07b]">
                         <h3 class="text-[#1a4524] font-bold flex items-center gap-2 text-sm mb-2">
                             <i class="fa-solid fa-gift text-[#3f7847]"></i> Beneficios de tener un grimorio

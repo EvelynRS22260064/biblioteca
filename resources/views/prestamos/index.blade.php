@@ -4,15 +4,16 @@
 @section('page-description', 'Supervisa el movimiento de ejemplares entre los habitantes del claro')
 
 @section('content')
+{{-- PÁGINA: Admin - Listado de préstamos --}}
 <div class="p-4 sm:p-8">
     <div class="container mx-auto px-4 py-8 max-w-7xl">
-        <!-- Header con estilo del bosque MEJORADO -->
+        {{-- SECCIÓN: Encabezado principal --}}
         <div class="mb-12 relative">
             <div class="absolute -top-4 -left-4 w-40 h-40 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-[#8bb682]/20 rounded-full blur-2xl"></div>
             
             <h1 class="font-story text-5xl md:text-6xl lg:text-7xl font-bold text-[#1f4a2a] mb-4 relative leading-tight">
-                <span class="inline-block mr-3 transform hover:rotate-12 transition-transform duration-300">📋</span> 
+                <span class="inline-block mr-3 transform hover:rotate-12 transition-transform duration-300">📋</span>
                 <span class="relative">
                     Bitácora
                     <span class="absolute -bottom-2 left-0 w-full h-2 bg-[#b7d6a5]/30 rounded-full blur-sm"></span>
@@ -20,6 +21,7 @@
                 <br>de Préstamos Encantados
             </h1>
 
+            {{-- SECCIÓN: Mensajes de sesión --}}
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
                     <strong class="font-bold">¡Éxito!</strong>
@@ -45,17 +47,18 @@
             </div>
         </div>
 
-        <!-- Botón crear -->
+        {{-- SECCIÓN: Botón de acción --}}
         <div class="mb-8 flex justify-end">
-            <a href="{{ route('prestamos.create') }}" 
-               class="group relative bg-[#3f7847] hover:bg-[#4c8f55] text-white px-8 py-4 rounded-full font-story flex items-center gap-3 border-2 border-[#9bcf98] shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
+            <a href="{{ route('prestamos.create') }}"
+            class="group relative bg-[#3f7847] hover:bg-[#4c8f55] text-white px-8 py-4 rounded-full font-story flex items-center gap-3 border-2 border-[#9bcf98] shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
                 <i class="fa-solid fa-plus bg-white/20 p-2 rounded-full"></i>
                 <span class="text-lg">Registrar Nuevo Viaje</span>
             </a>
         </div>
 
-        <!-- Tabla -->
+        {{-- SECCIÓN: Tabla de préstamos --}}
         <div class="form-card overflow-hidden border-2 border-[#8bb682] shadow-2xl relative">
+            {{-- Encabezado de tabla --}}
             <div class="p-6 border-b border-[#99bF8c] bg-gradient-to-r from-[#f0f7e8] to-[#e5f0db]">
                 <h2 class="font-story text-2xl md:text-3xl font-bold text-[#1a4524] flex items-center gap-3">
                     <i class="fa-solid fa-list text-[#3f7847] text-3xl"></i> 
@@ -63,6 +66,7 @@
                 </h2>
             </div>
 
+            {{-- Tabla de datos --}}
             <div class="overflow-x-auto">
                 <table class="min-w-full admin-table">
                     <thead>
@@ -104,16 +108,16 @@
                             </td>
 
                             <td class="px-6 py-4">
+                                {{-- ACCIONES: Editar y Eliminar --}}
                                 <div class="flex gap-2">
-
-                                    <a href="{{ route('prestamos.edit', $prestamo->id) }}" 
-                                       class="text-[#2e693b] hover:text-[#1f4a2a]">
-                                       Editar
+                                    <a href="{{ route('prestamos.edit', $prestamo->id) }}"
+                                    class="text-[#2e693b] hover:text-[#1f4a2a]">
+                                    Editar
                                     </a>
 
-                                    <form action="{{ route('prestamos.destroy', $prestamo->id) }}" 
-                                          method="POST"
-                                          onsubmit="return confirm('¿Eliminar préstamo?');">
+                                    <form action="{{ route('prestamos.destroy', $prestamo->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('¿Eliminar préstamo?');">
                                         @csrf
                                         @method('DELETE')
 
@@ -121,19 +125,17 @@
                                             Eliminar
                                         </button>
                                     </form>
-
                                 </div>
                             </td>
                         </tr>
 
                         @empty
-
+                        {{-- Mensaje cuando no hay datos --}}
                         <tr>
                             <td colspan="6" class="px-6 py-12 text-center text-[#5b8c5a]">
                                 No hay préstamos registrados
                             </td>
                         </tr>
-
                         @endforelse
 
                     </tbody>

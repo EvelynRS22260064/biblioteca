@@ -4,9 +4,10 @@
 @section('page-description', 'Gestiona los lectores y guardianes del claro encantado')
 
 @section('content')
+{{-- PÁGINA: Admin - Listado de usuarios --}}
 <div class="p-4 sm:p-8">
     <div class="container mx-auto px-4 py-8">
-        <!-- Header con estilo del bosque MEJORADO -->
+        {{-- SECCIÓN: Encabezado principal --}}
         <div class="mb-12 relative">
             <div class="absolute -top-4 -left-4 w-40 h-40 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
             <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-[#8bb682]/20 rounded-full blur-2xl"></div>
@@ -39,7 +40,7 @@
             </div>
         </div>
 
-        <!-- Botón Crear Usuario MEJORADO -->
+        {{-- SECCIÓN: Botón de acción --}}
         <div class="mb-8 flex justify-end">
             <a href="{{ route('usuarios.create') }}"
             class="group relative bg-[#3f7847] hover:bg-[#4c8f55] text-white px-8 py-4 rounded-full font-story flex items-center gap-3 border-2 border-[#9bcf98] shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
@@ -50,10 +51,11 @@
             </a>
         </div>
 
-        <!-- Tabla de Usuarios con estilo form-card -->
+        {{-- SECCIÓN: Tabla de usuarios --}}
         <div class="form-card overflow-hidden border-2 border-[#8bb682] shadow-2xl relative">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3f7847] via-[#8bb682] to-[#3f7847]"></div>
             
+            {{-- Encabezado de tabla --}}
             <div class="p-6 border-b border-[#99bF8c] bg-gradient-to-r from-[#f0f7e8] to-[#e5f0db]">
                 <h2 class="font-story text-2xl md:text-3xl font-bold text-[#1a4524] flex items-center gap-3">
                     <i class="fa-solid fa-people-group text-[#3f7847] text-3xl"></i> 
@@ -65,6 +67,7 @@
                 </p>
             </div>
 
+            {{-- Tabla de datos --}}
             <div class="overflow-x-auto">
                 <table class="min-w-full table-auto admin-table">
                     <thead>
@@ -140,6 +143,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
+                                {{-- ACCIONES: Editar y Eliminar --}}
                                 <div class="flex gap-2">
                                     <a href="{{ route('usuarios.edit', $usuario->id) }}"
                                     class="group/edit relative text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1 px-3 py-1 rounded-full hover:bg-white/50 border border-transparent hover:border-[#2e693b]">
@@ -150,7 +154,7 @@
                                         </span>
                                     </a>
                                     
-                                    <form action="#"
+                                    <form action="#" {{-- Ruta pendiente de definir --}}
                                     method="POST"
                                     class="inline"
                                     onsubmit="return confirm('¿Estás seguro de eliminar al habitante {{ $usuario->name }}? Esta acción no se puede deshacer.');">
@@ -169,6 +173,7 @@
                             </td>
                         </tr>
                         @empty
+                        {{-- Mensaje cuando no hay datos --}}
                         <tr>
                             <td colspan="5" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center gap-4 text-[#8bb682]">
@@ -187,7 +192,7 @@
                 </table>
             </div>
 
-            <!-- Paginación (si existe) -->
+            {{-- SECCIÓN: Paginación --}}
             @if(isset($usuarios) && method_exists($usuarios, 'hasPages') && $usuarios->hasPages())
             <div class="p-6 border-t border-[#99bF8c] bg-gradient-to-b from-[#fafff2] to-[#e5f0db]">
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -238,7 +243,7 @@
             @endif
         </div>
 
-        <!-- Decoración del bosque mejorada -->
+        {{-- SECCIÓN: Decoración del bosque --}}
         <div class="mt-10 text-center relative">
             <div class="absolute left-1/2 -translate-x-1/2 -top-5 w-20 h-20 bg-[#b7d6a5]/20 rounded-full blur-2xl"></div>
             <div class="flex justify-center gap-4 text-[#8bb682] text-xl">

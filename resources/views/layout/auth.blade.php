@@ -8,16 +8,16 @@
     
     <title>@yield('title', 'Biblioteca del Bosque Encantado - Acceso')</title>
     
-    <!-- Tailwind CSS -->
+    {{-- CSS: Tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome para iconos -->
+    {{-- ICONOS: Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Fuentes personalizadas -->
+    {{-- FUENTES: Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <!-- CSS exclusivo para el layout de autenticación (bosque encantado) -->
+    {{-- ESTILOS: Layout de autenticación (bosque encantado) --}}
     <style>
         /* ===== VARIABLES DEL BOSQUE ===== */
         :root {
@@ -285,19 +285,19 @@
     @stack('styles')
 </head>
 <body class="antialiased">
-    <!-- Hojas decorativas flotantes -->
+    {{-- DECORACIÓN: Hojas flotantes --}}
     <div class="leaf-decoration leaf-1">🍃</div>
     <div class="leaf-decoration leaf-2">🍂</div>
     <div class="leaf-decoration leaf-3">🌿</div>
     
-    <!-- Contenido principal -->
+    {{-- SECCIÓN: Contenido principal centrado --}}
     <main class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="w-full">
             @yield('content')
         </div>
     </main>
     
-    <!-- Scripts opcionales -->
+    {{-- SCRIPTS: Opcionales por página --}}
     @stack('scripts')
 </body>
 </html>

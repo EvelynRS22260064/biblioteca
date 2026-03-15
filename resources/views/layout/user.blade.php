@@ -8,13 +8,13 @@
     
     <title>@yield('title', 'Biblioteca del Bosque Encantado - Admin')</title>
     
-    <!-- Tailwind CSS -->
+    {{-- CSS: Tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome para iconos -->
+    {{-- ICONOS: Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Fuentes personalizadas -->
+    {{-- FUENTES: Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
@@ -274,9 +274,9 @@
 </head>
 <body class="antialiased">
     <div class="flex min-h-screen">
-        <!-- ===== SIDEBAR (PANEL LATERAL IZQUIERDO) ===== -->
+        {{-- ===== SIDEBAR (PANEL LATERAL IZQUIERDO) ===== --}}
         <aside class="sidebar w-64 flex-shrink-0 relative z-20">
-            <!-- Logo del bosque -->
+            {{-- Logo del bosque --}}
             <div class="p-6 text-center border-b border-[#5f946b]">
                 <div class="w-16 h-16 bg-[#5b9c5a] rounded-full mx-auto mb-3 flex items-center justify-center shadow-lg border-2 border-[#b7d6a5]">
                     <span class="text-3xl font-story italic font-bold text-[#e9f3d8]">📚</span>
@@ -285,7 +285,7 @@
                 <p class="text-xs text-[#8bb682] mt-1">Guardián</p>
             </div>
             
-            <!-- Menú de navegación -->
+            {{-- Menú de navegación --}}
             <nav class="mt-8">
                 <a href="{{ route('home') }}" class="sidebar-link {{ request()->routeIs('home') ? 'active' : '' }}">
                     <i class="fa-solid fa-tree"></i>
@@ -297,22 +297,22 @@
                     <span>Préstamos</span>
                 </a>
 
-                <!-- Salir (destacado) -->
+                {{-- Salir (destacado) --}}
                 <a href="{{ route('logout') }}" class="sidebar-link logout">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Salir del bosque</span>
                 </a>
             </nav>
             
-            <!-- Versión -->
+            {{-- Versión --}}
             <div class="absolute bottom-4 left-0 right-0 text-center">
                 <p class="text-xs text-[#5f946b]">Grimorio v2.0</p>
             </div>
         </aside>
 
-        <!-- ===== CONTENIDO PRINCIPAL CON TÍTULO ARRIBA ===== -->
+        {{-- ===== CONTENIDO PRINCIPAL CON TÍTULO ARRIBA ===== --}}
         <main class="main-content">
-            <!-- Header con título de la página -->
+            {{-- Header con título de la página --}}
             <header class="mb-8">
                 <div class="flex justify-between items-center">
                     <div>
@@ -324,7 +324,7 @@
                         </p>
                     </div>
                     
-                    <!-- Info del usuario -->
+                    {{-- Info del usuario --}}
                     <div class="flex items-center gap-4 bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full border border-[#98b696]">
                         <div class="flex items-center gap-2">
                             <div class="w-8 h-8 bg-[#3f7847] rounded-full flex items-center justify-center text-white">
@@ -338,7 +338,7 @@
                 </div>
             </header>
 
-            <!-- ===== MENSAJES FLASH GLOBALES (AGREGADOS AQUÍ) ===== -->
+            {{-- ===== MENSAJES FLASH GLOBALES ===== --}}
             @if(session('success'))
                 <div class="mx-4 sm:mx-0 mb-6 p-4 bg-[#d8ecd0] border border-[#5b9c5a] text-[#1f4a2a] rounded-xl flex items-center gap-2">
                     <i class="fa-solid fa-leaf text-[#3f7847]"></i>
@@ -353,7 +353,7 @@
                 </div>
             @endif
 
-            <!-- Contenido específico de cada página -->
+            {{-- Contenido específico de cada página --}}
             @yield('content')
         </main>
     </div>

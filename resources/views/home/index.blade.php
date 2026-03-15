@@ -4,10 +4,11 @@
 @section('page-description', 'Panel principal del bosque encantado')
 
 @section('content')
+{{-- PÁGINA: Admin - Dashboard / Panel de inicio --}}
 <div class="p-4 sm:p-8">
-    <!-- Panel de Estadísticas (4 tarjetas principales) -->
+    {{-- SECCIÓN: Estadísticas principales (4 tarjetas) --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <!-- Tarjeta 1: Total de libros -->
+        {{-- Tarjeta 1: Total de libros --}}
         <div class="book-card p-6 relative overflow-hidden group">
             <div class="absolute top-0 right-0 w-24 h-24 bg-[#b7d6a5]/30 rounded-bl-full -z-0"></div>
             <div class="relative z-10">
@@ -22,7 +23,7 @@
             </div>
         </div>
 
-        <!-- Tarjeta 2: Libros prestados -->
+        {{-- Tarjeta 2: Libros prestados --}}
         <div class="book-card p-6 relative overflow-hidden group">
             <div class="absolute top-0 right-0 w-24 h-24 bg-[#f0dbb0]/30 rounded-bl-full -z-0"></div>
             <div class="relative z-10">
@@ -37,7 +38,7 @@
             </div>
         </div>
 
-        <!-- Tarjeta 3: Usuarios activos -->
+        {{-- Tarjeta 3: Usuarios activos --}}
         <div class="book-card p-6 relative overflow-hidden group">
             <div class="absolute top-0 right-0 w-24 h-24 bg-[#a8d5a8]/30 rounded-bl-full -z-0"></div>
             <div class="relative z-10">
@@ -52,7 +53,7 @@
             </div>
         </div>
 
-        <!-- Tarjeta 4: Devoluciones pendientes -->
+        {{-- Tarjeta 4: Devoluciones pendientes --}}
         <div class="book-card p-6 relative overflow-hidden group">
             <div class="absolute top-0 right-0 w-24 h-24 bg-[#d4a5a5]/30 rounded-bl-full -z-0"></div>
             <div class="relative z-10">
@@ -68,8 +69,9 @@
         </div>
     </div>
 
-    <!-- Sección de Acceso Rápido / Atajos -->
+    {{-- SECCIÓN: Acceso Rápido / Atajos --}}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {{-- Atajo 1: Nuevo libro --}}
         <div class="admin-card p-5 flex items-center gap-4">
             <div class="w-12 h-12 bg-[#3f7847] rounded-full flex items-center justify-center text-white text-xl">
                 <i class="fa-solid fa-book-open"></i>
@@ -83,6 +85,7 @@
             </a>
         </div>
         
+        {{-- Atajo 2: Nuevo lector --}}
         <div class="admin-card p-5 flex items-center gap-4">
             <div class="w-12 h-12 bg-[#b8860b] rounded-full flex items-center justify-center text-white text-xl">
                 <i class="fa-solid fa-users"></i>
@@ -96,6 +99,7 @@
             </a>
         </div>
         
+        {{-- Atajo 3: Reportes --}}
         <div class="admin-card p-5 flex items-center gap-4">
             <div class="w-12 h-12 bg-[#5b8c5a] rounded-full flex items-center justify-center text-white text-xl">
                 <i class="fa-solid fa-chart-line"></i>
@@ -110,8 +114,9 @@
         </div>
     </div>
 
-    <!-- Sección principal: Grimorio de Libros -->
+    {{-- SECCIÓN: Grimorio de Libros (tabla principal) --}}
     <div class="form-card overflow-hidden mb-8">
+        {{-- Encabezado de sección --}}
         <div class="p-6 border-b border-[#99bF8c] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <h2 class="font-story text-2xl font-bold text-[#1a4524] flex items-center gap-2">
@@ -122,9 +127,9 @@
             <a href="{{ route('libros.create') }}" class="bg-[#3f7847] hover:bg-[#4c8f55] text-white px-6 py-3 rounded-full font-story flex items-center gap-2 border border-[#9bcf98] shadow-lg transition">
                 <i class="fa-solid fa-plus"></i> Agregar libro
             </a>
-            </div>
+        </div>
         
-        <!-- Tabla responsive -->
+        {{-- Tabla de libros --}}
         <div class="overflow-x-auto">
             <table class="w-full text-left admin-table">
                 <thead>
@@ -162,6 +167,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4">
+                            {{-- ACCIONES: Editar y Eliminar --}}
                             <div class="flex gap-3 text-sm">
                                 <a href="{{ route('libros.edit', $libro->id) }}" class="text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1">
                                     <i class="fa-solid fa-edit"></i> Editar
@@ -177,6 +183,7 @@
                         </td>
                     </tr>
                     @empty
+                    {{-- Mensaje cuando no hay libros --}}
                     <tr>
                         <td colspan="6" class="px-6 py-12 text-center text-[#5b8c5a]">
                             <i class="fa-solid fa-leaf text-3xl mb-2 block"></i>
@@ -191,58 +198,60 @@
             </table>
         </div>
         
-       <!-- Paginación con estilo bosque -->
-@if(isset($libros) && $libros->hasPages())
-<div class="p-6 border-t border-[#99bF8c]">
-    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p class="text-xs text-[#5b8c5a] font-story flex items-center gap-2">
-            <i class="fa-solid fa-leaf text-[#8bb682]"></i>
-            Mostrando {{ $libros->firstItem() }} - {{ $libros->lastItem() }} de {{ $libros->total() }} libros
-            <i class="fa-solid fa-leaf text-[#8bb682]"></i>
-        </p>
-        
-        <div class="flex gap-2">
-            {{-- Botón Anterior --}}
-            @if($libros->onFirstPage())
-                <span class="w-9 h-9 rounded-full border border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                </span>
-            @else
-                <a href="{{ $libros->previousPageUrl() }}" class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                </a>
-            @endif
+        {{-- SECCIÓN: Paginación de libros --}}
+        @if(isset($libros) && $libros->hasPages())
+        <div class="p-6 border-t border-[#99bF8c]">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-[#5b8c5a] font-story flex items-center gap-2">
+                    <i class="fa-solid fa-leaf text-[#8bb682]"></i>
+                    Mostrando {{ $libros->firstItem() }} - {{ $libros->lastItem() }} de {{ $libros->total() }} libros
+                    <i class="fa-solid fa-leaf text-[#8bb682]"></i>
+                </p>
+                
+                <div class="flex gap-2">
+                    {{-- Botón Anterior --}}
+                    @if($libros->onFirstPage())
+                        <span class="w-9 h-9 rounded-full border border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </span>
+                    @else
+                        <a href="{{ $libros->previousPageUrl() }}" class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition flex items-center justify-center">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </a>
+                    @endif
 
-            {{-- Números de página --}}
-            @foreach(range(1, $libros->lastPage()) as $page)
-                @if($page == $libros->currentPage())
-                    <span class="w-9 h-9 rounded-full bg-[#3f7847] text-white border border-[#9bcf98] flex items-center justify-center font-story font-bold shadow-md">
-                        {{ $page }}
-                    </span>
-                @else
-                    <a href="{{ $libros->url($page) }}" class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition flex items-center justify-center font-story">
-                        {{ $page }}
-                    </a>
-                @endif
-            @endforeach
+                    {{-- Números de página --}}
+                    @foreach(range(1, $libros->lastPage()) as $page)
+                        @if($page == $libros->currentPage())
+                            <span class="w-9 h-9 rounded-full bg-[#3f7847] text-white border border-[#9bcf98] flex items-center justify-center font-story font-bold shadow-md">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $libros->url($page) }}" class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition flex items-center justify-center font-story">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
 
-            {{-- Botón Siguiente --}}
-            @if($libros->hasMorePages())
-                <a href="{{ $libros->nextPageUrl() }}" class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </a>
-            @else
-                <span class="w-9 h-9 rounded-full border border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </span>
-            @endif
+                    {{-- Botón Siguiente --}}
+                    @if($libros->hasMorePages())
+                        <a href="{{ $libros->nextPageUrl() }}" class="w-9 h-9 rounded-full border border-[#8bb682] text-[#1f4a2a] hover:bg-[#e5f0db] hover:border-[#3f7847] transition flex items-center justify-center">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </a>
+                    @else
+                        <span class="w-9 h-9 rounded-full border border-[#c3dfb5] text-[#b7d6a5] flex items-center justify-center cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </span>
+                    @endif
+                </div>
+            </div>
         </div>
+        @endif
     </div>
-</div>
-@endif
 
-    <!-- Actividad Reciente y Categorías Populares -->
+    {{-- SECCIÓN: Actividad Reciente y Categorías Populares --}}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {{-- Columna izquierda: Actividad reciente --}}
         <div class="admin-card p-6">
             <h3 class="font-story text-xl font-bold text-[#1f4a2a] mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-clock"></i> Actividad reciente
@@ -278,6 +287,7 @@
             </div>
         </div>
 
+        {{-- Columna derecha: Categorías populares --}}
         <div class="admin-card p-6">
             <h3 class="font-story text-xl font-bold text-[#1f4a2a] mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-chart-pie"></i> Categorías populares

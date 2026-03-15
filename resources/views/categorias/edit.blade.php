@@ -4,13 +4,14 @@
 @section('page-description', 'Modifica los detalles de la categoría del bosque')
 
 @section('content')
+{{-- PÁGINA: Admin - Editar categoría --}}
 <div class="p-4 sm:p-8">
     <div class="container mx-auto px-4 py-8">
-        <!-- Header con estilo del bosque -->
+        {{-- SECCIÓN: Encabezado de página --}}
         <div class="mb-8 relative">
             <div class="absolute -top-4 -left-4 w-32 h-32 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
             <h1 class="font-story text-4xl md:text-5xl font-bold text-[#1f4a2a] mb-3 relative">
-                <span class="inline-block mr-3">🍂</span> 
+                <span class="inline-block mr-3">🍂</span>
                 Editar Categoría
             </h1>
             <p class="text-[#2d5a36] text-base max-w-3xl leading-relaxed">
@@ -18,8 +19,9 @@
             </p>
         </div>
 
-        <!-- Formulario estilo pergamino -->
+        {{-- SECCIÓN: Formulario de edición --}}
         <div class="form-card overflow-hidden max-w-2xl mx-auto">
+            {{-- Encabezado del formulario --}}
             <div class="p-6 border-b border-[#99bF8c]">
                 <h2 class="font-story text-2xl font-bold text-[#1a4524] flex items-center gap-2">
                     <i class="fa-solid fa-pen-to-square"></i> Editar Categoría
@@ -27,10 +29,12 @@
                 <p class="text-[#34633e] text-sm">Actualiza el nombre de la categoría en el catálogo</p>
             </div>
 
+            {{-- FORMULARIO: Actualizar categoría --}}
             <form action="{{ route('categorias.update', $categoria->id) }}" method="POST" class="p-6">
                 @csrf 
                 @method('PUT')
 
+                {{-- Campo: Nombre de categoría --}}
                 <div class="mb-6">
                     <label for="nombre" class="form-label">Nombre de la categoría:</label>
                     <div class="relative">
@@ -43,15 +47,19 @@
                                placeholder="Ej. Literatura, Ciencia Ficción, Fantasía..." 
                                required>
                     </div>
+                    {{-- Mostrar error de validación --}}
                     @error('nombre')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
+                {{-- SECCIÓN: Botones de acción --}}
                 <div class="flex items-center justify-between gap-4 mt-8">
+                    {{-- Botón: Actualizar --}}
                     <button type="submit" class="btn-primary flex-1">
                         <i class="fa-solid fa-save mr-2"></i> Actualizar categoría
                     </button>
+                    {{-- Botón: Cancelar (volver al listado) --}}
                     <a href="{{ route('categorias.index') }}" 
                        class="btn-admin-secondary flex items-center gap-2 px-6 py-3">
                         <i class="fa-solid fa-times"></i> Cancelar
@@ -60,7 +68,7 @@
             </form>
         </div>
 
-        <!-- Decoración adicional del bosque -->
+        {{-- SECCIÓN: Decoración adicional --}}
         <div class="mt-8 text-center">
             <p class="text-sm text-[#8bb682]">
                 <i class="fa-solid fa-leaf"></i>

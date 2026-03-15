@@ -1,6 +1,11 @@
-<!-- FOOTER DEL BOSQUE - Panel de Administración -->
+{{-- ============================================================= --}}
+{{-- FOOTER DEL BOSQUE - Panel de Administración                  --}}
+{{-- UBICACIÓN: resources/views/partials/admin-footer.blade.php  --}}
+{{-- PROPÓSITO: Pie de página para el panel de administración    --}}
+{{-- ============================================================= --}}
+
 <footer class="mt-12 relative">
-    <!-- Ondas decorativas superiores -->
+    {{-- SECCIÓN: Ondas decorativas superiores --}}
     <div class="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-8 md:h-12 fill-[#e5f0db] opacity-60">
             <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
@@ -9,9 +14,9 @@
         </svg>
     </div>
 
-    <!-- Footer principal estilo musgo -->
+    {{-- SECCIÓN: Footer principal estilo musgo --}}
     <div class="footer-moss rounded-t-[60px] pt-16 pb-8 px-4 sm:px-6 lg:px-8 border-t-4 border-[#5f946b] shadow-2xl relative overflow-hidden">
-        <!-- Elementos decorativos del bosque -->
+        {{-- DECORACIÓN: Elementos del bosque --}}
         <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
             <div class="absolute top-10 left-10 text-4xl opacity-10 animate-pulse">🌲</div>
             <div class="absolute bottom-10 right-10 text-6xl opacity-10 animate-pulse">🍂</div>
@@ -20,10 +25,10 @@
         </div>
 
         <div class="max-w-7xl mx-auto relative z-10">
-            <!-- Grid principal del footer -->
+            {{-- SECCIÓN: Grid principal del footer --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                 
-                <!-- Columna 1: Logo y descripción -->
+                {{-- COLUMNA 1: Logo y descripción --}}
                 <div class="col-span-1">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-12 h-12 bg-[#5b8c5a] rounded-full flex items-center justify-center shadow-lg border-2 border-[#b7d6a5]">
@@ -52,7 +57,7 @@
                     </div>
                 </div>
 
-                <!-- Columna 2: Navegación rápida -->
+                {{-- COLUMNA 2: Navegación rápida --}}
                 <div>
                     <h4 class="font-story text-xl text-[#eafada] mb-4 border-b border-[#70a072] pb-2 flex items-center gap-2">
                         <i class="fa-solid fa-tree text-sm"></i> Navegación
@@ -91,7 +96,7 @@
                     </ul>
                 </div>
 
-                <!-- Columna 3: Accesos directos -->
+                {{-- COLUMNA 3: Accesos directos --}}
                 <div>
                     <h4 class="font-story text-xl text-[#eafada] mb-4 border-b border-[#70a072] pb-2 flex items-center gap-2">
                         <i class="fa-solid fa-crown text-sm"></i> Guardianes
@@ -130,7 +135,7 @@
                     </ul>
                 </div>
 
-                <!-- Columna 4: Contacto y horarios -->
+                {{-- COLUMNA 4: Contacto y horarios --}}
                 <div>
                     <h4 class="font-story text-xl text-[#eafada] mb-4 border-b border-[#70a072] pb-2 flex items-center gap-2">
                         <i class="fa-solid fa-clock text-sm"></i> El claro
@@ -162,7 +167,7 @@
                 </div>
             </div>
 
-            <!-- Separador con hojas -->
+            {{-- DECORACIÓN: Separador con hojas --}}
             <div class="relative my-8">
                 <div class="absolute inset-0 flex items-center">
                     <div class="w-full border-t border-[#5f946b]"></div>
@@ -176,7 +181,7 @@
                 </div>
             </div>
 
-            <!-- Copyright y créditos -->
+            {{-- SECCIÓN: Copyright y créditos --}}
             <div class="text-center text-[#c6e2b5] text-sm">
                 <p class="mb-2">
                     © {{ date('Y') }} · Biblioteca del Bosque Encantado · Panel del Guardián
@@ -188,7 +193,7 @@
                     <span class="hidden sm:inline">•</span>
                     <span>🍄 Diseñado con magia</span>
                 </p>
-                <!-- Versión del sistema -->
+                {{-- Versión del sistema --}}
                 <div class="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-[#1f4029]/50 rounded-full border border-[#5f946b] text-xs">
                     <i class="fa-solid fa-code-branch text-[#8bb682]"></i>
                     <span>Grimorio v2.0.1 - Conjuro de administración</span>

@@ -8,13 +8,13 @@
     
     <title>Editar Libro - Biblioteca del Bosque Encantado</title>
     
-    <!-- Tailwind CSS -->
+    {{-- CSS: Tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome para iconos -->
+    {{-- ICONOS: Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Fuentes personalizadas -->
+    {{-- FUENTES: Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
@@ -213,11 +213,11 @@
 </head>
 <body class="antialiased">
     <div class="container mx-auto px-4 py-12 max-w-3xl relative">
-        <!-- Hojas decorativas flotantes -->
+        {{-- DECORACIÓN: Hojas flotantes --}}
         <div class="fixed top-20 left-10 text-4xl opacity-10 pointer-events-none animate-pulse">🌿</div>
         <div class="fixed bottom-20 right-10 text-4xl opacity-10 pointer-events-none animate-pulse">🍂</div>
         
-        <!-- Header con estilo del bosque -->
+        {{-- SECCIÓN: Encabezado --}}
         <div class="mb-8 relative">
             <div class="absolute -top-4 -left-4 w-32 h-32 bg-[#b7d6a5]/20 rounded-full blur-3xl"></div>
             <h1 class="font-story text-5xl md:text-6xl font-bold text-[#1f4a2a] mb-3 relative flex items-center gap-3">
@@ -229,7 +229,7 @@
             </p>
         </div>
 
-        <!-- Mostrar errores de validación con estilo -->
+        {{-- SECCIÓN: Errores de validación --}}
         @if ($errors->any())
             <div class="error-container">
                 <ul>
@@ -243,8 +243,9 @@
             </div>
         @endif
 
-        <!-- Formulario estilo pergamino -->
+        {{-- SECCIÓN: Formulario de edición --}}
         <div class="form-card p-8">
+            {{-- Encabezado del formulario --}}
             <div class="border-b border-[#99bF8c] pb-4 mb-6">
                 <h2 class="font-story text-2xl font-bold text-[#1a4524] flex items-center gap-2">
                     <i class="fa-solid fa-pen-to-square text-[#3f7847]"></i>
@@ -256,12 +257,13 @@
                 </p>
             </div>
 
+            {{-- FORMULARIO: Actualizar libro --}}
             <form action="{{ route('libros.update', $libro->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Nombre -->
+                    {{-- Campo: Nombre --}}
                     <div class="md:col-span-2">
                         <label class="form-label flex items-center gap-2">
                             <i class="fa-solid fa-heading text-[#3f7847]"></i>
@@ -278,7 +280,7 @@
                         </div>
                     </div>
 
-                    <!-- ISBN -->
+                    {{-- Campo: ISBN --}}
                     <div>
                         <label class="form-label flex items-center gap-2">
                             <i class="fa-solid fa-barcode text-[#3f7847]"></i>
@@ -295,7 +297,7 @@
                         </div>
                     </div>
 
-                    <!-- Autor -->
+                    {{-- Campo: Autor --}}
                     <div>
                         <label class="form-label flex items-center gap-2">
                             <i class="fa-solid fa-user-pen text-[#3f7847]"></i>
@@ -312,7 +314,7 @@
                         </div>
                     </div>
 
-                    <!-- Editorial -->
+                    {{-- Campo: Editorial --}}
                     <div>
                         <label class="form-label flex items-center gap-2">
                             <i class="fa-solid fa-building text-[#3f7847]"></i>
@@ -329,7 +331,7 @@
                         </div>
                     </div>
 
-                    <!-- Categoría -->
+                    {{-- Campo: Categoría (select) --}}
                     <div class="md:col-span-2">
                         <label class="form-label flex items-center gap-2">
                             <i class="fa-solid fa-tags text-[#3f7847]"></i>
@@ -350,7 +352,7 @@
                     </div>
                 </div>
 
-                <!-- Separador decorativo -->
+                {{-- DECORACIÓN: Separador --}}
                 <div class="relative my-8">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-[#c3dfb5]"></div>
@@ -364,7 +366,7 @@
                     </div>
                 </div>
 
-                <!-- Botones -->
+                {{-- SECCIÓN: Botones de acción --}}
                 <div class="flex items-center justify-end gap-4">
                     <a href="{{ route('libros.index') }}" class="btn-secondary">
                         <i class="fa-solid fa-times"></i>
@@ -379,7 +381,7 @@
             </form>
         </div>
 
-        <!-- Mensaje inspirador -->
+        {{-- SECCIÓN: Mensaje inspirador --}}
         <div class="mt-8 text-center">
             <p class="text-sm text-[#8bb682] italic font-story">
                 <i class="fa-solid fa-quote-left mr-2 opacity-50"></i>
