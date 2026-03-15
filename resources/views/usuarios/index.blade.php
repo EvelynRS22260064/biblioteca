@@ -41,8 +41,8 @@
 
         <!-- Botón Crear Usuario MEJORADO -->
         <div class="mb-8 flex justify-end">
-            <a href="#" 
-               class="group relative bg-[#3f7847] hover:bg-[#4c8f55] text-white px-8 py-4 rounded-full font-story flex items-center gap-3 border-2 border-[#9bcf98] shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
+            <a href="{{ route('usuarios.create') }}"
+            class="group relative bg-[#3f7847] hover:bg-[#4c8f55] text-white px-8 py-4 rounded-full font-story flex items-center gap-3 border-2 border-[#9bcf98] shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1">
                 <span class="absolute -left-2 -top-2 text-lg opacity-50 group-hover:opacity-100 transition">🌱</span>
                 <i class="fa-solid fa-plus bg-white/20 p-2 rounded-full"></i>
                 <span class="text-lg">Nuevo habitante</span>
@@ -141,8 +141,8 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex gap-2">
-                                    <a href="#" 
-                                       class="group/edit relative text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1 px-3 py-1 rounded-full hover:bg-white/50 border border-transparent hover:border-[#2e693b]">
+                                    <a href="{{ route('usuarios.edit', $usuario->id) }}"
+                                    class="group/edit relative text-[#2e693b] hover:text-[#1f4a2a] transition flex items-center gap-1 px-3 py-1 rounded-full hover:bg-white/50 border border-transparent hover:border-[#2e693b]">
                                         <i class="fa-solid fa-pen-to-square group-hover/edit:rotate-12 transition"></i>
                                         <span class="relative">
                                             Editar
@@ -150,13 +150,13 @@
                                         </span>
                                     </a>
                                     
-                                    <form action="#" 
-                                          method="POST" 
-                                          class="inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar al habitante {{ $usuario->name }}? Esta acción no se puede deshacer.');">
+                                    <form action="#"
+                                    method="POST"
+                                    class="inline"
+                                    onsubmit="return confirm('¿Estás seguro de eliminar al habitante {{ $usuario->name }}? Esta acción no se puede deshacer.');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" 
+                                        <button type="submit"
                                                 class="group/delete relative text-[#b85c5c] hover:text-[#a04545] transition flex items-center gap-1 px-3 py-1 rounded-full hover:bg-white/50 border border-transparent hover:border-[#b85c5c]">
                                             <i class="fa-solid fa-trash group-hover/delete:scale-110 transition"></i>
                                             <span class="relative">
