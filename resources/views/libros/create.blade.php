@@ -194,7 +194,7 @@
 
         {{-- SECCIÓN: Botón Volver --}}
         <div class="mb-6">
-            <a href="{{ route('libros.create') }}" class="btn-secondary">
+            <a href="{{ route('libros.index') }}" class="btn-secondary">
                 <i class="fa-solid fa-arrow-left"></i>
                 Volver al catálogo
             </a>
@@ -318,7 +318,7 @@
 
                 {{-- SECCIÓN: Botones de acción --}}
                 <div class="flex items-center justify-end gap-4">
-                    <a href="{{ route('home') }}" class="btn-secondary">
+                    <a href="{{ route('libros.index') }}" class="btn-secondary">
                         <i class="fa-solid fa-times"></i>
                         Cancelar
                     </a>
