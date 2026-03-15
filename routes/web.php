@@ -19,10 +19,17 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 // Rutas protegidas
 Route::middleware('auth')->group(function () {
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
     // Rutas para préstamos (accesibles por ambos tipos de usuarios)
     Route::get('/prestamos', [PrestamosController::class, 'index'])->name('prestamos.index');
+    Route::get('/prestamos/create', [PrestamosController::class, 'create'])->name('prestamos.create');
+
+    // Permitir GET y POST para evitar el error MethodNotAllowed
+    Route::match(['get','post'], '/prestamos/buscar_usuario', [PrestamosController::class, 'buscar_usuario'])
+        ->name('prestamos.buscar_usuario');
 });
 
 // Rutas solo para administrador
@@ -33,7 +40,6 @@ Route::middleware(['auth', 'user_type:admin'])->group(function () {
 
     // CRUD completo de usuarios
     Route::resource('usuarios', UsuariosController::class);
-
 });
 
 // Rutas para usuarios normales
