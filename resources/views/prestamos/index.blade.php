@@ -92,7 +92,7 @@
                             </td>
 
                             <td class="px-6 py-4">
-                                {{ $prestamo->libro->titulo ?? 'Desconocido' }}
+                                {{ $prestamo->libro->nombre ?? 'Desconocido' }}
                             </td>
 
                             <td class="px-6 py-4">

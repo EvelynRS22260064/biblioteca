@@ -195,7 +195,7 @@
                     
                     {{-- SECCIÓN: Acciones para préstamo --}}
                     <div class="mt-6 flex justify-center">
-                        <a href="{{ route('prestamos.create', ['usuario_id' => $usuario->id]) }}"
+                        <a href="{{ route('prestamos.select_libro', ['usuario_id' => $usuario->id]) }}"
                         class="btn-primary flex items-center gap-3 py-4 px-8 text-lg">
                             <i class="fa-solid fa-book-open"></i>
                             <span>Registrar Préstamo para este Habitante</span>
