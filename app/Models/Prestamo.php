@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Libro;
 use App\Models\User;
 
-class prestamos extends Model
+class Prestamo extends Model
 {
     protected $table_name = 'prestamos';
 

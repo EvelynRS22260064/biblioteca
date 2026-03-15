@@ -184,6 +184,12 @@
                         </div>
                     </div>
                     
+                     <!-- Libro a prestar ediartlo para que aparezca y funcione-->
+                      <form action="{{ route('prestamos.select_libro') }}" method="POST" class="mt-8">
+                            @csrf
+                        <input type="hidden" name="usuario_id" value="{{ $usuario->id }}">
+                        <input type="submit" value="Seleccionar Libro para Prestar" class="btn-secondary mt-6 w-full py-4 text-lg">
+                    </form>
                     <div class="mt-6 flex justify-center">
                         <a href="{{ route('prestamos.create', ['usuario_id' => $usuario->id]) }}" 
                            class="btn-primary flex items-center gap-3 py-4 px-8 text-lg">
