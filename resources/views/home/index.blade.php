@@ -16,10 +16,11 @@
                     <p class="text-[#5b8c5a] text-sm font-medium font-story">🌳 Total de libros</p>
                     <i class="fa-solid fa-book text-2xl text-[#b7d6a5] group-hover:text-[#5b8c5a] transition"></i>
                 </div>
-                <p class="text-4xl font-bold text-[#1f4a2a] mb-2">1,247</p>
+                <p class="text-4xl font-bold text-[#1f4a2a] mb-2">{{ $total_libros }}</p>
+                <!--
                 <p class="text-[#3f7847] text-xs flex items-center gap-1 bg-[#e5f0db] px-3 py-1 rounded-full inline-flex">
                     <i class="fa-solid fa-arrow-up text-xs"></i> 5.2% desde la última luna
-                </p>
+                </p>-->
             </div>
         </div>
 
@@ -31,10 +32,11 @@
                     <p class="text-[#5b8c5a] text-sm font-medium font-story">🍂 Libros prestados</p>
                     <i class="fa-solid fa-exchange-alt text-2xl text-[#f0dbb0] group-hover:text-[#b8860b] transition"></i>
                 </div>
-                <p class="text-4xl font-bold text-[#1f4a2a] mb-2">189</p>
+                <p class="text-4xl font-bold text-[#1f4a2a] mb-2">{{ $libros_prestados }}</p>
+                <!--
                 <p class="text-[#b8860b] text-xs flex items-center gap-1 bg-[#f5e6d3] px-3 py-1 rounded-full inline-flex">
                     <i class="fa-solid fa-arrow-down text-xs"></i> 2.1% desde el mes pasado
-                </p>
+                </p> -->
             </div>
         </div>
 
@@ -46,10 +48,11 @@
                     <p class="text-[#5b8c5a] text-sm font-medium font-story">🌿 Lectores activos</p>
                     <i class="fa-solid fa-users text-2xl text-[#a8d5a8] group-hover:text-[#3f7847] transition"></i>
                 </div>
-                <p class="text-4xl font-bold text-[#1f4a2a] mb-2">543</p>
+                <p class="text-4xl font-bold text-[#1f4a2a] mb-2">{{ $total_usuarios }}</p>
+                <!--
                 <p class="text-[#3f7847] text-xs flex items-center gap-1 bg-[#e5f0db] px-3 py-1 rounded-full inline-flex">
                     <i class="fa-solid fa-arrow-up text-xs"></i> 12.7% desde el mes pasado
-                </p>
+                </p> -->
             </div>
         </div>
 
@@ -61,10 +64,11 @@
                     <p class="text-[#5b8c5a] text-sm font-medium font-story">⏳ Devoluciones pendientes</p>
                     <i class="fa-solid fa-clock text-2xl text-[#d4a5a5] group-hover:text-[#b85c5c] transition"></i>
                 </div>
-                <p class="text-4xl font-bold text-[#1f4a2a] mb-2">24</p>
+                <p class="text-4xl font-bold text-[#1f4a2a] mb-2">{{ $devoluciones_pendientes }}</p>
+                <!--
                 <p class="text-[#b85c5c] text-xs flex items-center gap-1 bg-[#f8e1e1] px-3 py-1 rounded-full inline-flex">
                     <i class="fa-solid fa-arrow-up text-xs"></i> 3.4% desde ayer
-                </p>
+                </p> -->
             </div>
         </div>
     </div>
