@@ -156,7 +156,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4">
-                            @if(($libro->estado ?? 'disponible') == 'disponible')
+                            @if($libro->estatus == 'D')
                                 <span class="flex items-center gap-1 text-[#3f7847] font-bold">
                                     <i class="fa-solid fa-leaf text-xs"></i> Disponible
                                 </span>

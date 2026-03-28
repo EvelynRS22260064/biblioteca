@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     // ELIMINAR préstamo
     Route::delete('/prestamos/{id}', [PrestamosController::class, 'destroy'])
         ->name('prestamos.destroy');
+    // DEVOLVER préstamo
+Route::put('/prestamos/devolver/{id}', [PrestamosController::class, 'devolver'])->name('prestamos.devolver');
 });
 // Rutas solo para administrador
 Route::middleware(['auth', 'user_type:admin'])->group(function () {
