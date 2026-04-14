@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Iniciar PHP-FPM en segundo plano
-php-fpm &
+php-fpm -D
 
 # Esperar un poco
 sleep 3

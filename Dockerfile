@@ -1,5 +1,5 @@
 #---- ETAPA 1: BUILD DE FRONT ----
-FROM node: 20 as node_builder
+FROM node:20 AS node_builder
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ RUN npm run build
 
 #--- ETAPA 2: BUILD DE BACKEND ----
 
-FROM php: 8.4 - fmp
+FROM php:8.2-fpm
 
 # Instalar dependencias del sistema y extensiones de PHP necesarias para Laravel
 RUN  apt-get update && apt-get install -y \
@@ -46,7 +46,7 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Configurar Nginx
-COPY docker/nginx.conf /etc/nginx/sities-available/default
+COPY docker/nginx.conf /etc/nginx/sites-available/default
 
 # Script de arranque
 COPY docker/entrypoint.sh /entrypoint.sh
