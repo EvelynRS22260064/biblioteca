@@ -11,7 +11,7 @@ RUN npm run build
 
 #--- ETAPA 2: BUILD DE BACKEND ----
 
-FROM php:8.2-fpm
+FROM php:8.4-fpm
 
 # Instalar dependencias del sistema y extensiones de PHP necesarias para Laravel
 RUN  apt-get update && apt-get install -y \
@@ -38,9 +38,6 @@ COPY . .
 
 # Copiar assets ya compilados
 COPY --from=node_builder /app/public/build /var/www/public/build
-
-# FIX BUILD 2
-RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction
 
 # Instalar dependencias de Laravel
 RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction
