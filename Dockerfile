@@ -36,11 +36,14 @@ WORKDIR /var/www
 # Copiar proyecto
 COPY . .
 
-# Copiar assets ya compilados 
+# Copiar assets ya compilados
 COPY --from=node_builder /app/public/build /var/www/public/build
 
+# FIX BUILD 2
+RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction
+
 # Instalar dependencias de Laravel
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction
 
 # Configurar permisos
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
