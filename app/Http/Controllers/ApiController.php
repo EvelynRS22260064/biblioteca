@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Libro;
+use App\Models\Prestamo;
+use App\Http\Resources\LibroResource;
 
 class ApiController extends Controller
 {
@@ -17,6 +20,7 @@ class ApiController extends Controller
 
         // Intentar login
         if (!Auth::attempt($credentials)) {
+
             return response()->json([
                 'message' => 'Credenciales inválidas'
             ], 401);
@@ -41,5 +45,55 @@ class ApiController extends Controller
         return response()->json([
             'message' => 'Sesión cerrada'
         ]);
+    }
+
+    public function libros_disponibles()
+    {
+        $libros = Libro::where('estatus', 'D')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return LibroResource::collection($libros);
+    }
+
+    public function entregar_libro(Request $request)
+    {
+        // Validar datos
+        $request->validate([
+            'prestamo_id' => 'required|exists:prestamos,id',
+        ]);
+
+        // Buscar préstamo
+        $prestamo = Prestamo::find($request->prestamo_id);
+
+        \DB::beginTransaction();
+
+        try {
+
+            // Buscar libro asociado al préstamo
+            $libro = Libro::find($prestamo->libro_id);
+
+            // Cambiar estado del libro a disponible
+            $libro->estatus = 'D';
+            $libro->save();
+
+            // Registrar fecha de devolución
+            $prestamo->fecha_devolucion = now();
+            $prestamo->save();
+
+            \DB::commit();
+
+            return response()->json([
+                'message' => 'Libro entregado correctamente'
+            ]);
+
+        } catch (\Exception $e) {
+
+            \DB::rollBack();
+
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }
