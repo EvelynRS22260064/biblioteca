@@ -34,7 +34,7 @@ class AuthController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'username' => $validatedData['email'], // Asignar el email como username
-            'tipo_usuario' => 'user', // Asignar un tipo de usuario por defecto   
+            'tipo_usuario' => 'user', // Asignar un tipo de usuario por defecto
         ]);
 
         // Redirigir o iniciar sesión automáticamente
